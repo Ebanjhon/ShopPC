@@ -1,5 +1,6 @@
 package com.example.mobileshopapp;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,13 +9,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class FirstRegister extends Fragment {
-    private TextView txtBtnContinute;
-    private EditText firstname, lastname, address, email, birth;
+    private TextView txtBtnContinute, birth, txtBtnPicker;
+    private EditText firstname, lastname, address, email;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class FirstRegister extends Fragment {
         birth = view.findViewById(R.id.birthdate);
         email = view.findViewById(R.id.email);
         txtBtnContinute = view.findViewById(R.id.txtToSecondFM);
-
+        txtBtnPicker = view.findViewById(R.id.btnShowCalender);
         // ham click
         txtBtnContinute.setOnClickListener(v -> {
             // thực hiện check dữ liệu đầu vào
@@ -65,6 +67,25 @@ public class FirstRegister extends Fragment {
             // Kết thúc giao dịch
             transaction.commit();
         });
+
+        // hàm gọi datepicker
+        txtBtnPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog();
+            }
+        });
         return view;
+    }
+
+    // gọi hàm show dialog
+    private void openDialog(){
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                birth.setText(String.valueOf(day)+"/"+String.valueOf(month+1)+"/"+String.valueOf(year));
+            }
+        }, 2024, 0, 0);
+        dialog.show();
     }
 }

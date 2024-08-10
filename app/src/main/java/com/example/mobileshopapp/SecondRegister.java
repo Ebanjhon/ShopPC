@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ import java.util.Map;
 
 
 public class SecondRegister extends Fragment {
+    ProgressBar progressBar;
     private TextView txtBack;
     private Button btnRegister;
     private FirebaseAuth mAuth;
@@ -49,6 +51,7 @@ public class SecondRegister extends Fragment {
         passcheck = view.findViewById(R.id.passAgain);
         btnRegister = view.findViewById(R.id.btnRegister);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        progressBar = view.findViewById(R.id.progressBarRegister);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -82,10 +85,14 @@ public class SecondRegister extends Fragment {
                     String email = data.getString("email");
                     String birthday = data.getString("birthday");
                     // gọi hàm đăng ký ng dùng
+                    progressBar.setVisibility(View.VISIBLE);
+                    btnRegister.setVisibility(View.GONE);
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
+                                    progressBar.setVisibility(View.GONE);
+                                    btnRegister.setVisibility(View.VISIBLE);
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         String uid = user.getUid();

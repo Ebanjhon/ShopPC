@@ -27,7 +27,8 @@ public class Register extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-//            reload();
+            Intent intent = new Intent(Register.this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -61,7 +62,7 @@ public class Register extends AppCompatActivity {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
             // Thêm Fragment vào container
-            transaction.add(R.id.fragment_container, fragment);
+            transaction.add(R.id.fragment_container, fragment, "FirstFragmentTag");
 
             // Kết thúc giao dịch và thực thi thay đổi
             transaction.commit();

@@ -107,12 +107,20 @@
                 android:layout_width="290dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="30dp"
                 android:backgroundTint="@color/violet"
                 android:text="Đăng nhập"
                 android:textColor="@color/white"
                 android:textSize="30dp"
-                android:layout_marginTop="30dp"
                 android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progressBarLogin"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:indeterminateTint="@color/violet"/>
 
             <TextView
                 android:id="@+id/textView"
