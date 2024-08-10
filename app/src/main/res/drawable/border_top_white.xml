@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <!-- Lớp nền với góc bo tròn -->
+            <item>
+                <shape>
+                    <solid android:color="#FFFFFF"/> <!-- Nền trắng -->
+                    <corners
+                        android:topLeftRadius="40dp"
+                        android:topRightRadius="40dp"/>
+                </shape>
+            </item>
+
+            <!-- Lớp ảnh nằm ở trung tâm -->
+            <item>
+                <bitmap
+                    android:src="@drawable/logotruong"
+                    android:gravity="center"
+                    android:alpha="0.2"/>
+            </item>
+        </layer-list>
+    </item>
+</selector>

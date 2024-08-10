@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context=".Login">
+
+    <FrameLayout
+        android:id="@+id/containerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginTop="-50dp"
+            android:layout_marginStart="-50dp"
+            android:layout_marginEnd="-20dp"
+            app:srcCompat="@drawable/itemlogin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="670dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/border_top_white"
+            android:orientation="vertical"
+            android:padding="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/robotoblackitalic"
+                android:text="Login"
+                android:textColor="@color/violet"
+                android:textSize="90sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/myTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/baseline_email_24"
+                    android:paddingBottom="10dp"
+                    android:text=" Email"
+                    android:textColor="@color/violet"
+                    android:textSize="25dp"
+                    android:layout_marginBottom="-10dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/emailLogin"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_login_register"
+                    android:fontFamily="@font/robotomedium"
+                    android:textStyle="bold"
+                    android:inputType="text"
+                    android:hint="Nhập Email"
+                    android:padding="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:paddingLeft="-6dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/baseline_lock_24"
+                    android:paddingBottom="10dp"
+                    android:text="Password"
+                    android:textColor="@color/violet"
+                    android:textSize="25dp"
+                    android:layout_marginBottom="-10dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/passLogin"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_login_register"
+                    android:fontFamily="@font/robotomedium"
+                    android:hint="Nhập mật khẩu"
+                    android:inputType="textPassword"
+                    android:padding="15dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="290dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/violet"
+                android:text="Đăng nhập"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                android:layout_marginTop="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:text="Quên mật khẩu?"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp"
+                app:srcCompat="@drawable/fb_gg" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
