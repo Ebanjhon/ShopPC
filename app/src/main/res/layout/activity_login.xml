@@ -23,11 +23,11 @@
             android:layout_marginTop="-50dp"
             android:layout_marginStart="-50dp"
             android:layout_marginEnd="-20dp"
-            app:srcCompat="@drawable/itemlogin" />
+            app:srcCompat="@drawable/itemloginintro" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="670dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@drawable/border_top_white"
             android:orientation="vertical"
@@ -119,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:text="Quên mật khẩu?"
                 android:textSize="18dp" />
 
@@ -128,9 +128,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="50dp"
                 app:srcCompat="@drawable/fb_gg" />
 
+            <TextView
+                android:id="@+id/txtViewToRegister"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_margin="40dp"
+                android:text="@string/register" />
 
         </LinearLayout>
     </FrameLayout>

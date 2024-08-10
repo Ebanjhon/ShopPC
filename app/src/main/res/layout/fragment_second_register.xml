@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SecondRegister">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_top_white"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-10dp"
+                    android:drawableLeft="@drawable/baseline_person_24"
+                    android:paddingBottom="10dp"
+                    android:text="Username"
+                    android:textColor="@color/violet"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_login_register"
+                    android:fontFamily="@font/robotomedium"
+                    android:hint="Tên người dùng"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-10dp"
+                    android:drawableLeft="@drawable/baseline_phone_24"
+                    android:paddingBottom="10dp"
+                    android:text="Phone"
+                    android:textColor="@color/violet"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_login_register"
+                    android:fontFamily="@font/robotomedium"
+                    android:hint="Số điện thoại"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-10dp"
+                    android:drawableLeft="@drawable/baseline_password_24"
+                    android:paddingBottom="10dp"
+                    android:text="Password"
+                    android:textColor="@color/violet"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/pass"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_login_register"
+                    android:fontFamily="@font/robotomedium"
+                    android:hint="Nhập mật khẩu"
+                    android:inputType="textPassword"
+                    android:padding="15dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-10dp"
+                    android:drawableLeft="@drawable/baseline_password_24"
+                    android:paddingBottom="10dp"
+                    android:text="Password again"
+                    android:textColor="@color/violet"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/passAgain"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edit_text_login_register"
+                    android:fontFamily="@font/robotomedium"
+                    android:hint="Nhập lại mật khẩu"
+                    android:inputType="textPassword"
+                    android:padding="15dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="290dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="Đăng ký"
+                android:textColor="@color/violet"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:strokeColor="@color/violet"
+                android:backgroundTint="@color/white"
+                app:strokeWidth="3dp" />
+
+            <TextView
+                android:id="@+id/txtBackFM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:drawableLeft="@drawable/baseline_chevron_left_24"
+                android:text="Quay lại"
+                android:textColor="@color/violet"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

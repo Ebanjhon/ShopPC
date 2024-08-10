@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "837450353257",
+    "project_id": "shoppc-app-mobile",
+    "storage_bucket": "shoppc-app-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837450353257:android:4791494e5187372e8bb0f8",
+        "android_client_info": {
+          "package_name": "com.example.mobileshopapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgeGlFSciV-btFeHfXKS2XvDew7DrFBis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
