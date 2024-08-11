@@ -40,7 +40,7 @@ public class FirstRegister extends Fragment {
             date = birth.getText().toString();
             eml = email.getText().toString();
             if (eml.isEmpty()||fname.isEmpty()||lname.isEmpty()||adrss.isEmpty()){
-                Toast.makeText(getActivity(), "Vui lòng nhập nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                 return;
             }
 

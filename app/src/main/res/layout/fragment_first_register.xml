@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/baseline_email_24"
                     android:paddingBottom="10dp"
-                    android:text=" Email"
+                    android:text="Email"
                     android:textColor="@color/violet"
                     android:textSize="25dp"
                     android:layout_marginBottom="-10dp"

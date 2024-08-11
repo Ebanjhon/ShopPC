@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bggradient"
+    tools:context=".NotSignInFragment">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pcimg" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xin Chào!"
+            android:textSize="60dp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign in to continute"
+            android:textSize="20dp"
+            android:fontFamily="@font/robotomedium"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_gravity="bottom|center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginBottom="3dp"
+            android:text="Đăng nhập với quyền Admin/Nhân viên."
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/robotomedium"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_height="wrap_content"/>
+        <androidx.cardview.widget.CardView
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="100dp"
+            android:backgroundTint="@color/milk"
+            app:cardElevation="3dp"
+            app:cardMaxElevation="30dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="false">
+
+            <Button
+                android:textSize="25dp"
+                android:fontFamily="@font/robotomedium"
+                android:textStyle="bold"
+                android:id="@+id/button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/milk"
+                android:text="Đăng nhập"
+                android:textColor="@color/timtext" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_marginBottom="3dp"
+            android:text="Đăng nhập/Đăng ký với tài khoản khách."
+            android:fontFamily="@font/robotomedium"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginBottom="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="100dp"
+            android:backgroundTint="@color/milk"
+            app:cardElevation="2dp"
+            app:cardMaxElevation="15dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="false">
+
+            <Button
+                android:textSize="25dp"
+                android:fontFamily="@font/robotomedium"
+                android:textStyle="bold"
+                android:id="@+id/btnToLogin"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/milk"
+                android:text="Đăng nhập/Đăng ký"
+                android:textColor="@color/timtext" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_gravity="bottom|center"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            android:text="App design by Eban" />
+    </LinearLayout>
+
+
+
+</FrameLayout>
