@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_profile"
     tools:context=".ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Profile" />
 
         <Button
             android:id="@+id/btnLogout"
@@ -24,6 +14,61 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Đăng xuất" />
-    </LinearLayout>
 
+    <TextView
+        android:id="@+id/btnBackProfile"
+        android:text="Profile"
+        android:drawableLeft="@drawable/back_left_30"
+        android:textSize="26dp"
+        android:fontFamily="@font/robotomonoregular"
+        android:gravity=""
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <FrameLayout
+        android:layout_gravity="bottom"
+        android:background="@drawable/border_top_white"
+        android:layout_marginTop="170dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/username"
+            android:text="Y Jhon ÊBan"
+            android:textSize="27dp"
+            android:layout_gravity="top|center"
+            android:layout_marginTop="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thông tin" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lịch sử đơn" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </FrameLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avatar"
+        app:shapeAppearanceOverlay="@style/hinhTronIMG"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="top|center"
+        android:layout_width="150dp"
+        app:strokeColor="@color/violet"
+        app:strokeWidth="3dp"
+        android:layout_height="150dp"/>
 </FrameLayout>

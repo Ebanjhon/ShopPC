@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 
 public class ProfileFragment extends Fragment {
@@ -37,18 +39,14 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 mAuth.signOut();
                 chuyenDoiManHinh(new NotSignInFragment());
-//                FirebaseUser currentUser = mAuth.getCurrentUser();
-//                if (currentUser == null){
-//                    Toast.makeText(getActivity(), "khoong cos", Toast.LENGTH_SHORT).show();
-//
-//                }else{
-//                    Toast.makeText(getActivity(), "cos", Toast.LENGTH_SHORT).show();
-//
-//                }
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                startActivity(intent);
+
             }
         });
+
+        // hiển thị avatar
+        ShapeableImageView avatar = view.findViewById(R.id.avatar);
+        String imageUrl = "https://i.pinimg.com/564x/6b/d8/28/6bd828068a62aab41e75ebf829e2fc5d.jpg";
+        Picasso.get().load(imageUrl).into(avatar);
 
 
         return view;
