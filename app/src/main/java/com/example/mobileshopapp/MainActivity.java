@@ -37,16 +37,21 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView navBottomView;
     private FrameLayout frameLayout;
     private FirebaseAuth mAuth;
+    DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+        User user= dbHelper.getUserById(mAuth.getUid());
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if(currentUser != null && user != null){
             // Tải menu mới từ XML
-
+            if(!(user.getRole().equals("client")))
+            {
+                Intent intent = new Intent(MainActivity.this, AdminEmployeeMain.class);
+                startActivity(intent);
+            }
         }
     }
 
