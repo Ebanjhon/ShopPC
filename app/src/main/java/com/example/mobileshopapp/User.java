@@ -3,18 +3,12 @@ package com.example.mobileshopapp;
 import java.util.Date;
 
 public class User {
-    private String idUser,username,role, firstname, lastname, email,phone,avatar, andress;
-    private Date birthDate;
+    private String idUser,username,role, firstname, lastname, email,phone,avatar, address, birthDate;
 
-    // contructor
-    public User() {}
+    // constructor
 
-    public User(String username, String role) {
-        this.username = username;
-        this.role = role;
-    }
-
-    public User(String username, String role, String firstname, String lastname, String email, String phone, String avatar, String andress, Date birthDate) {
+    public User(String idUser, String username, String role, String firstname, String lastname, String email, String phone, String avatar, String address, String birthDate) {
+        this.idUser = idUser;
         this.username = username;
         this.role = role;
         this.firstname = firstname;
@@ -22,11 +16,12 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.avatar = avatar;
-        this.andress = andress;
+        this.address = address;
         this.birthDate = birthDate;
     }
 
     // getter and setter
+
     public String getIdUser() {
         return idUser;
     }
@@ -91,19 +86,19 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getAndress() {
-        return andress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAndress(String andress) {
-        this.andress = andress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 }

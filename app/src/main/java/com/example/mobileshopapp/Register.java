@@ -45,7 +45,7 @@ public class Register extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         txtBtnLogin = findViewById(R.id.txtViewToLogin);
-
+        // chuyển sang login
         txtBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

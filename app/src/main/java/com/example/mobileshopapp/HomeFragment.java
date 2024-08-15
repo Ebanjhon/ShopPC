@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Toast.makeText(getActivity(), proName[i], Toast.LENGTH_SHORT).show();
             }
         });
 

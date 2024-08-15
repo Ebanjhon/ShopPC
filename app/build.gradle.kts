@@ -44,9 +44,12 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
     implementation(libs.firebase.firestore)
+    implementation(libs.gridlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.24")
+    implementation("com.google.android.material:material:1.9.0")
 
 }

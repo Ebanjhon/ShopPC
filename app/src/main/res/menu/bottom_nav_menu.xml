@@ -17,4 +17,20 @@
         android:icon="@drawable/profile"
         android:id="@+id/Profile"
         android:title="Tài khoản" />
+
+<!--    <item-->
+<!--        android:icon="@drawable/statistic"-->
+<!--        android:id="@+id/Statistic"-->
+<!--        android:title="Thống kê" />-->
+
+<!--    <item-->
+<!--        android:icon="@drawable/order"-->
+<!--        android:id="@+id/Order"-->
+<!--        android:title="Đơn hàng" />-->
+
+<!--    <item-->
+<!--        android:icon="@drawable/product"-->
+<!--        android:id="@+id/Product"-->
+<!--        android:title="Sản phẩm" />-->
+
 </menu>

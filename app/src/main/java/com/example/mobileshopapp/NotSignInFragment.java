@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class NotSignInFragment extends Fragment {
-    Button btnGoToLogin;
+    Button btnGoToLogin, btnloginAdmin;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class NotSignInFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_not_sign_in, container, false);
         // ánh xạ tới login
         btnGoToLogin = view.findViewById(R.id.btnToLogin);
-
+        btnloginAdmin = view.findViewById(R.id.button);
         // gọi hàm
         btnGoToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,8 +28,14 @@ public class NotSignInFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
+        // đăng nhập admin
+        btnloginAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LoginAdminEmployee.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

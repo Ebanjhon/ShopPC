@@ -9,8 +9,6 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-
-
     <FrameLayout
         android:id="@+id/frameLayoutMain"
         android:layout_width="match_parent"
@@ -21,10 +19,14 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavView"
+        android:background="@color/milk"
         android:layout_width="match_parent"
         app:menu="@menu/bottom_nav_menu"
-        app:itemTextColor="@color/violet"
+        app:itemTextColor="@color/black"
         app:itemIconSize="34dp"
-        android:layout_height="wrap_content"/>
+        app:itemPaddingBottom="10dp"
+        app:itemIconTint="@color/bottom_nav_item_color"
+        app:itemPaddingTop="10dp"
+        android:layout_height="70dp"/>
 
 </LinearLayout>

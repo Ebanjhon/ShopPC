@@ -5,5 +5,5 @@
     <!-- Bo tròn góc -->
     <stroke android:color="@color/violet" android:width="5dp"/>
     <corners
-        android:radius="10dp"/> <!-- Đặt bán kính bo tròn cho tất cả các góc -->
+        android:radius="90dp"/> <!-- Đặt bán kính bo tròn cho tất cả các góc -->
 </shape>

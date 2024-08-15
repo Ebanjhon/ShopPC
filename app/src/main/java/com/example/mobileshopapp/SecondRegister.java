@@ -1,5 +1,6 @@
 package com.example.mobileshopapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -84,6 +85,7 @@ public class SecondRegister extends Fragment {
                     String address = data.getString("address");
                     String email = data.getString("email");
                     String birthday = data.getString("birthday");
+
                     // gọi hàm đăng ký ng dùng
                     progressBar.setVisibility(View.VISIBLE);
                     btnRegister.setVisibility(View.GONE);
@@ -96,8 +98,19 @@ public class SecondRegister extends Fragment {
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         String uid = user.getUid();
-                                        createDataUser(uid, firstname, lastname, address, email, birthday, numPhone, urname);
+                                        createDataUser(uid, firstname, lastname, address, birthday, numPhone, urname);
                                         Toast.makeText(getActivity(), "Đăng ký Thành công", Toast.LENGTH_SHORT).show();
+                                        DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
+                                        // tạo đối tượng user
+                                        User u = new User(mAuth.getUid(), urname
+                                                ,"client", firstname
+                                                ,lastname, email
+                                                ,numPhone, null
+                                                ,address, birthday);
+                                        // lưu dữ liệu váo sql
+                                        dbHelper.addUser(u);
+                                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                                        startActivity(intent);
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(getActivity(), "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
@@ -132,15 +145,15 @@ public class SecondRegister extends Fragment {
     }
 
     // gọi hàm thêm dữ liệu user vào database
-    private void createDataUser(String uid, String firstname, String lastname, String address, String email, String birthday, String phone, String username) {
+    private void createDataUser(String uid, String firstname, String lastname, String address, String birthday, String phone, String username) {
         // Tạo một đối tượng Map để lưu dữ liệu người dùng
         Map<String, Object> user = new HashMap<>();
         user.put("username", username);
         user.put("role", "client");
         user.put("lastname", lastname);
         user.put("firstname",firstname);
-        user.put("email", email);
         user.put("phone", phone);
+        user.put("address", address);
         user.put("birthday", birthday);
 
         // Sử dụng set() với document ID tùy chỉnh (ở đây là uid)

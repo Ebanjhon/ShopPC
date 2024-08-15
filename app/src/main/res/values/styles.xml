@@ -4,4 +4,20 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">30dp</item> <!-- Kích thước chữ -->
+        <item name="android:textColor">?android:textColorPrimary</item> <!-- Màu chữ -->
+    </style>
+
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintTextAppearance">@style/CustomHintTextAppearance</item>
+    </style>
+
+    <!-- res/values/styles.xml -->
+    <style name="CustomHintTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item> <!-- Điều chỉnh kích thước chữ -->
+        <item name="android:textColorHint">@color/black</item> <!-- Màu của hint -->
+    </style>
+
 </resources>
