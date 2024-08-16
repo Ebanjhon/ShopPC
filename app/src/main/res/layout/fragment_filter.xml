@@ -1,12 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FilterFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:text="Danh mục"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:fontFamily="@font/robotomedium"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexbox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</FrameLayout>
+        android:layout_height="wrap_content"
+        app:flexWrap="wrap"
+        app:alignItems="center"
+        app:justifyContent="center">
+
+<!--        <RadioButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Option 2"-->
+<!--            android:button="@null"-->
+<!--            android:background="@drawable/radio_button"-->
+<!--            android:padding="16dp" />-->
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <TextView
+        android:text="Hãng"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:fontFamily="@font/robotomedium"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="Giá sản phẩm"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:fontFamily="@font/robotomedium"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RadioGroup
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Tất cả"
+            android:textSize="23dp" />
+
+        <RadioButton
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="nhập giá"
+            android:textSize="23dp" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Từ:" />
+
+        <EditText
+            android:id="@+id/priceFrom"
+            android:background="@drawable/number_input_price"
+            android:layout_width="200dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="23dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="VNĐ" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Đến:" />
+
+        <EditText
+            android:id="@+id/priceTo"
+            android:background="@drawable/number_input_price"
+            android:layout_width="200dp"
+            android:textSize="23dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="VNĐ" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnfiler"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/violet"
+        android:text="Áp dụng"
+        android:textColor="@color/milk"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

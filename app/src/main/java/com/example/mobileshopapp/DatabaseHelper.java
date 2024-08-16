@@ -71,14 +71,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // lấy dữ liệu user
-    public User getUserById(String idUser) {
+    public User getUser() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_NAME, new String[]{COLUMN_ID_USER, COLUMN_USERNAME, COLUMN_ROLE,
-                        COLUMN_FIRSTNAME, COLUMN_LASTNAME, COLUMN_EMAIL, COLUMN_PHONE,
-                        COLUMN_AVATAR, COLUMN_ADDRESS, COLUMN_BIRTHDATE},
-                COLUMN_ID_USER + "=?", new String[]{idUser},
-                null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, new String[]{
+                        COLUMN_ID_USER, COLUMN_USERNAME, COLUMN_ROLE,
+                        COLUMN_FIRSTNAME, COLUMN_LASTNAME, COLUMN_EMAIL,
+                        COLUMN_PHONE, COLUMN_AVATAR, COLUMN_ADDRESS,
+                        COLUMN_BIRTHDATE},
+                null, null, null, null, null); // Giới hạn kết quả là 1 dòng
 
         if (cursor != null)
             cursor.moveToFirst();
@@ -100,6 +101,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return user;
     }
+
+//    public User getUserById(String idUser) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.query(TABLE_NAME, new String[]{COLUMN_ID_USER, COLUMN_USERNAME, COLUMN_ROLE,
+//                        COLUMN_FIRSTNAME, COLUMN_LASTNAME, COLUMN_EMAIL, COLUMN_PHONE,
+//                        COLUMN_AVATAR, COLUMN_ADDRESS, COLUMN_BIRTHDATE},
+//                COLUMN_ID_USER + "=?", new String[]{idUser},
+//                null, null, null, null);
+//
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        User user = new User(
+//                cursor.getString(0),  // idUser
+//                cursor.getString(1),  // username
+//                cursor.getString(2),  // role
+//                cursor.getString(3),  // firstname
+//                cursor.getString(4),  // lastname
+//                cursor.getString(5),  // email
+//                cursor.getString(6),  // phone
+//                cursor.getString(7),  // avatar
+//                cursor.getString(8),  // address
+//                cursor.getString(9)   // birthDate
+//        );
+//
+//        cursor.close();
+//        db.close();
+//        return user;
+//    }
 
     // xóa bảng user
     public void deleteTable() {

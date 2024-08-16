@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:tabTextAppearance="@style/CustomTabTextAppearance"
+                app:tabTextAppearance="@style/CustomTabTextlayout"
                 app:layout_constraintTop_toBottomOf="@+id/username" />
 
             <androidx.viewpager2.widget.ViewPager2

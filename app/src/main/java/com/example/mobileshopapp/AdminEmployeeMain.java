@@ -27,7 +27,7 @@ public class AdminEmployeeMain extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_employee_main);
         mAuth = FirebaseAuth.getInstance();
-        User user= dbHelper.getUserById(mAuth.getUid());
+        User user= dbHelper.getUser();
         // thêm điều hướng
         BottomNavigationView bottomNavView = findViewById(R.id.bottomNavView);
 

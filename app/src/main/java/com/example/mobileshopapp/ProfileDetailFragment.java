@@ -1,5 +1,6 @@
 package com.example.mobileshopapp;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
@@ -29,6 +30,17 @@ public class ProfileDetailFragment extends Fragment {
     private DatabaseHelper dbHelper;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate layout cho Fragment
@@ -43,16 +55,19 @@ public class ProfileDetailFragment extends Fragment {
             public void onClick(View view) {
                 mAuth.signOut();
                 dbHelper.deleteTable();
-                chuyenDoiManHinh(new NotSignInFragment());
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+//                chuyenDoiManHinh(new NotSignInFragment());
             }
         });
         // lấy user
-        User user= dbHelper.getUserById(mAuth.getUid());
+        User user= dbHelper.getUser();
         TextView username, address, role, birthdate, phone, email;
         username = view.findViewById(R.id.username);
         role = view.findViewById(R.id.role);
         birthdate = view.findViewById(R.id.birth);
         email = view.findViewById(R.id.email);
+        address = view.findViewById(R.id.address);
         phone = view.findViewById(R.id.phone);
 //
         username.setText(user.getUsername());
@@ -60,6 +75,7 @@ public class ProfileDetailFragment extends Fragment {
         birthdate.setText(user.getBirthDate());
         email.setText(user.getEmail());
         phone.setText(user.getPhone());
+        address.setText(user.getAddress());
 
         return view;
     }

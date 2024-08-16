@@ -20,4 +20,12 @@
         <item name="android:textColorHint">@color/black</item> <!-- Màu của hint -->
     </style>
 
+    <style name="CustomTabTextlayout" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">19dp</item> <!-- Kích thước chữ -->
+        <item name="android:textColor">?android:textColorPrimary</item> <!-- Màu chữ -->
+    </style>
+
+
+
+
 </resources>

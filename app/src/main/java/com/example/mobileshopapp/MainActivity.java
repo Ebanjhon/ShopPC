@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        User user= dbHelper.getUserById(mAuth.getUid());
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null && user != null){
+        if(currentUser != null){
+            User user = dbHelper.getUser();
             // Tải menu mới từ XML
             if(!(user.getRole().equals("client")))
             {
