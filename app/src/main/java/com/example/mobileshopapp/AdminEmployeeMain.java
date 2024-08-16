@@ -35,6 +35,7 @@ public class AdminEmployeeMain extends AppCompatActivity {
         if(user.getRole().equals("admin"))
         {
             bottomNavView.inflateMenu(R.menu.bottom_nav_menu_admin);
+            chuyenDoiManHinh(new AdminMainFragment());
         }
         else{
             bottomNavView.inflateMenu(R.menu.bottom_nav_menu_employee);
@@ -46,7 +47,7 @@ public class AdminEmployeeMain extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if(R.id.Home == itemId) {
-                    chuyenDoiManHinh(new HomeFragment());
+                    chuyenDoiManHinh(new AdminMainFragment());
                 }else if (R.id.Product == itemId) {
 //                    chuyenDoiManHinh(new FilterFragment());
                 }else if (R.id.Statistic == itemId) {

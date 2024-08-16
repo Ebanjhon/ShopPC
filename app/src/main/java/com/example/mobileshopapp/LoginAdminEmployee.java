@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class LoginAdminEmployee extends AppCompatActivity {
     TextView btnBack;
     Button btnLogin;
+    ProgressBar progressBar;
     EditText eml, pass;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -51,6 +53,7 @@ public class LoginAdminEmployee extends AppCompatActivity {
         btnBack = findViewById(R.id.txtback);
         btnLogin = findViewById(R.id.btnLogin);
         eml = findViewById(R.id.emailLogin);
+        progressBar = findViewById(R.id.progressBarAdmin);
         pass = findViewById(R.id.passwordLogin);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +73,13 @@ public class LoginAdminEmployee extends AppCompatActivity {
                     Toast.makeText(LoginAdminEmployee.this, "Vui Lòng nhập đầy đủ thông tin!",
                             Toast.LENGTH_SHORT).show();
                 }else{
+                    btnLogin.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.VISIBLE);
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    btnLogin.setVisibility(View.VISIBLE);
+
                                     if (task.isSuccessful()) {
                                         //check role
                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -106,6 +111,7 @@ public class LoginAdminEmployee extends AppCompatActivity {
                                                                 Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
+
                                             }
                                         });
 
@@ -114,6 +120,9 @@ public class LoginAdminEmployee extends AppCompatActivity {
                                         Toast.makeText(LoginAdminEmployee.this, "Mật khẩu hoặc Email không đúng!",
                                                 Toast.LENGTH_SHORT).show();
                                     }
+
+                                    btnLogin.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(View.GONE);
 
                                 }
                             });

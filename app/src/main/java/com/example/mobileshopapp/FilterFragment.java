@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,8 @@ import com.google.android.flexbox.FlexboxLayout;
 public class FilterFragment extends Fragment {
     FlexboxLayout flexbox;
     Button btnFilter;
+    RadioGroup radioGrp;
+    FrameLayout frameLayout;
     private int selectedIndex = -1;
     final int[] index = new int[1];
     @SuppressLint("UseCompatLoadingForColorStateLists")
@@ -33,6 +37,7 @@ public class FilterFragment extends Fragment {
         // ánh xạ
         flexbox = view.findViewById(R.id.flexbox);
         btnFilter = view.findViewById(R.id.btnfiler);
+        frameLayout = view.findViewById(R.id.frameLayoutPrice);
         // khởi tạo dữ liệu category
         String[] cate = {"all", "Màn hình", "bàn phím", "chuột", "ổ cứng", "Quạt tản nhiệt"};
         final RadioButton[] checkedRadioButton = {null};
@@ -86,6 +91,19 @@ public class FilterFragment extends Fragment {
                     Toast.makeText(getActivity(), "Selected index: " + selectedIndex, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "No selection", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        // xử lý xử kiệt nhấn nút chọn giá
+        radioGrp = view.findViewById(R.id.groupRadio);
+        radioGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i == R.id.radioAll)
+                {
+                    frameLayout.setVisibility(View.GONE);
+                }else{
+                    frameLayout.setVisibility(View.VISIBLE);
                 }
             }
         });
