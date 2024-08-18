@@ -74,9 +74,9 @@ public class HomeFragment extends Fragment {
         }
 
         // khởi tạo data product
-        String[] proName = {"Capy ngầu", "Capy cool", "Capy tốt nghiệp", "Capy zombae", "Capy ngộ 0", "Capy nhân viên", "Capy chạy deadline"
+        String[] proName = {"Capy ngầu", "Capy cool", "Capy tốt nghiệp", "Capy g chữ trên ", "Capy ngộ 0", "Capy nhân viên", "Capy chạy deadline"
                 , "Capy 6 mũi", "Capy trộm nc", "Capy chef", "Người hầu", "MC Capy", "Capy deadline"};
-        String[] proPrice = {"1000k", "3000k", "300USD","1000k", "300k", "700k","1000k", "3070k", "300k","2000k", "3000k", "89USD", "666K"};
+        String[] proPrice = {"10.000.000k", "3000k", "300USD","1000k", "300k", "700k","1000k", "3070k", "300k","2000k", "3000k", "89USD", "666K"};
         String[] proImg = {"https://i.pinimg.com/736x/a8/d8/94/a8d894d33567cb0d0ae9108f004cc9c6.jpg"
                 ,"https://i.pinimg.com/564x/40/10/f3/4010f31f2de3d89a28083f589253d555.jpg"
                 ,"https://i.pinimg.com/736x/ca/34/01/ca34019485c3041131d4a0c0417a9b26.jpg"

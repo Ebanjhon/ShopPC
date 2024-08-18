@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Màu nền của hình chữ nhật -->
+    <solid android:color="@color/milk"/> <!-- Nền trắng -->
+    <!-- Bo tròn góc -->
+    <corners
+        android:radius="50dp"/> <!-- Đặt bán kính bo tròn cho tất cả các góc -->
+    <stroke android:width="5px" android:color="@color/green" />
+</shape>

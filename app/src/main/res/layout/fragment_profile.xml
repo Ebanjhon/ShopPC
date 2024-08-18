@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_profile"
+    android:background="@drawable/hinhanhnen"
     tools:context=".ProfileFragment">
-
 
     <TextView
         android:id="@+id/btnBackProfile"
@@ -19,12 +18,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <ImageButton
+        android:id="@+id/imageButtonAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@drawable/bo_vien_nhe"
+        android:layout_margin="10dp"
+        android:layout_gravity="top|right"
+        android:src="@drawable/baseline_image_24" />
+
     <FrameLayout
         android:layout_gravity="bottom"
         android:background="@drawable/border_top_white"
         android:layout_marginTop="140dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtEdit"
+            android:layout_gravity="right"
+            android:drawableStart="@drawable/pen_edit"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/gray"
+            android:textStyle="bold"
+            android:text="Chỉnh sửa" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -35,8 +57,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|center"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:text="Y Jhon ÊBan"
+                android:textColor="@color/chuden"
                 android:textSize="27dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +97,8 @@
         android:layout_marginTop="50dp"
         android:layout_gravity="top|center"
         android:layout_width="150dp"
-        app:strokeColor="@color/violet"
+        app:strokeColor="@color/milk"
         app:strokeWidth="3dp"
         android:layout_height="150dp"/>
+
 </FrameLayout>

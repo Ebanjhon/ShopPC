@@ -52,4 +52,5 @@ dependencies {
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.24")
     implementation("com.google.android.material:material:1.9.0")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation("com.github.dhaval2404:imagepicker:2.1")
 }

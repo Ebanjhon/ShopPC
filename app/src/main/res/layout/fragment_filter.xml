@@ -170,10 +170,11 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@color/violet"
+        android:background="@drawable/bo_vien_nhe"
+        android:backgroundTint="@color/violet"
         android:text="Áp dụng"
         android:textColor="@color/milk"
         android:textSize="30dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
 </LinearLayout>

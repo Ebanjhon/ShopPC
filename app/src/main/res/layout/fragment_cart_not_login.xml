@@ -11,13 +11,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/buttonCartLogin"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/cartimg"
+            android:layout_marginBottom="44dp"
+            android:text="Đăng nhập"
+            android:textSize="45dp"
+            android:layout_marginLeft="20dp"
+            android:backgroundTint="@color/milk"
+            android:fontFamily="@font/antonregular"
+            android:layout_marginRight="20dp"
+            android:paddingTop="5dp"
+            android:textColor="#737DFE"
+            android:paddingBottom="10dp"
+            android:background="@drawable/bo_vien_nhe"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="match_parent"
+            android:layout_height="595dp"
+            android:src="@drawable/cartimg"
+            app:layout_constraintBottom_toTopOf="@+id/textView14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginBottom="24dp"
+            android:text="Vui lòng đăng nhập để xem giỏ hàng!"
+            android:textColor="@color/chuden"
+            android:textSize="23dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonCartLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.47"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
