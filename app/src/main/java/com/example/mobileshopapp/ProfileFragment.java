@@ -23,28 +23,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
 
 public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     private TabLayout tbLayout;
     private ViewPager2 vPager;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
     private DatabaseHelper dbHelper;
     private ImageButton btnPiker;
     private ShapeableImageView avatar;
     private ActivityResultLauncher<Intent> activityResultLauncher;
+    StorageReference storageRef = storage.getReference();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,8 +67,14 @@ public class ProfileFragment extends Fragment {
 
         // hiển thị avatar
         avatar = view.findViewById(R.id.avatar);
-        String imageUrl = "https://i.pinimg.com/564x/6b/d8/28/6bd828068a62aab41e75ebf829e2fc5d.jpg";
-        Picasso.get().load(imageUrl).into(avatar);
+        if(ur.getAvatar().isEmpty()){
+            Picasso.get().load(R.drawable.avatar).into(avatar);
+        }else{
+            Picasso.get()
+                    .load(ur.getAvatar())
+                    .error(R.drawable.avatar) // Hình ảnh khi lỗi
+                    .into(avatar);
+        }
 
         // set pageview hiển thị nội dung của fragment
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity());
@@ -91,8 +99,26 @@ public class ProfileFragment extends Fragment {
                         // Lấy URL của ảnh
                         Uri uri = result.getData().getData();
                         // Thực hiện hành động với URL của ảnh
-                        Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
                         Picasso.get().load(uri).into(avatar);
+
+                        // Tạo một tham chiếu lưu ảnh trong Firebase Storage
+                        StorageReference imageRef = storageRef.child("images/" + System.currentTimeMillis() + ".jpg");
+
+                        // Bắt đầu tải ảnh lên Firebase Storage
+                        imageRef.putFile(uri)
+                                .addOnSuccessListener(taskSnapshot -> {
+                                    // Lấy URL tải về sau khi tải lên thành công
+                                    imageRef.getDownloadUrl().addOnSuccessListener(downloadUri -> {
+                                        String imageurl = downloadUri.toString(); // đường dẫn ảnh sau khi up load xong
+                                        updateAvatarInFirestore(ur.getIdUser(), imageurl);
+                                        dbHelper.updateAvatar(ur.getIdUser(), imageurl);
+//                                        Toast.makeText(getActivity(), "Upload thành công!", Toast.LENGTH_SHORT).show();
+                                    });
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(getActivity(), "Upload thất bại!", Toast.LENGTH_SHORT).show();
+                                });
+
                     } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
                         // Xử lý lỗi nếu có
                         Toast.makeText(getActivity(), "Error: " + ImagePicker.getError(result.getData()), Toast.LENGTH_SHORT).show();
@@ -121,5 +147,25 @@ public class ProfileFragment extends Fragment {
 
         return view;
     }
+
+    //hàm cập nhật thông tin user firebase
+    private void updateAvatarInFirestore(String userId, String avatarUrl) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Tham chiếu đến tài liệu của người dùng trong Firestore
+        DocumentReference userRef = db.collection("Users").document(userId);
+
+        // Cập nhật trường avatar trong tài liệu của người dùng
+        userRef.update("avatar", avatarUrl)
+                .addOnSuccessListener(aVoid -> {
+                    // Cập nhật thành công
+                    Toast.makeText(getActivity(), "Avatar cập nhật thành công", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    // Xử lý lỗi khi cập nhật thất bại
+                    Toast.makeText(getActivity(), "Cập nhật avatar thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
 
 }
