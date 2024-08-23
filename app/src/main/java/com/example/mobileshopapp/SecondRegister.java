@@ -105,7 +105,7 @@ public class SecondRegister extends Fragment {
                                         User u = new User(mAuth.getUid(), urname
                                                 ,"client", firstname
                                                 ,lastname, email
-                                                ,numPhone, null
+                                                ,numPhone, ""
                                                 ,address, birthday);
                                         // lưu dữ liệu váo sql
                                         dbHelper.addUser(u);

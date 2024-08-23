@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductDetailFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/btnBackProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/back_left_30"
+            android:fontFamily="@font/robotomonoregular"
+            android:gravity=""
+            android:text="Product"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBackProfile" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="@color/xamnhe" />
+
+                <TextView
+                    android:id="@+id/nameProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24dp"
+                    android:fontFamily="@font/inter18ptmedium"
+                    android:padding="7dp"
+                    android:textColor="@color/chuden"
+                    android:text="Màn hình LCD Lenovo 21.5 L22i-40 - 67AEKACBVN (1920 x 1080/IPS/75Hz/4 ms/FreeSync)" />
+
+                <LinearLayout
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/violet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nhà sản xuất: " />
+
+                    <TextView
+                        android:id="@+id/nameCompany"
+                        android:textSize="21dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="Lenovo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="29dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/ibmplexsansbold"
+                        android:textColor="@color/camprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.100.000.VNĐ" />
+
+                    <Button
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="10dp"
+                        android:text="Thêm vào giỏ hàng"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
+                <TextView
+                    android:text="Mô tả sản phẩm"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:paddingLeft="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1"
+                    android:padding="7dp"
+                    android:background="#ffffff">
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:text="Tương thích VESA"
+                            android:padding="8dp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="#000000"
+                            android:background="@drawable/border_infor" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="17dp"
+                            android:text="Chế độ Eco (giữ nguyên): 17W
+Eco Mode (optimized): 20W
+Tiêu thụ (điển hình): 24W
+Mức tiêu thụ (tối đa): 25W
+Vôn: AC 100-240V
+đứng gần: 0.3W
+Nguồn cấp: External Power Adaptor"
+                            android:padding="8dp"
+                            android:textColor="#000000"
+                            android:background="@drawable/border_infor" /> <!-- Áp dụng viền -->
+                    </TableRow>
+                </TableLayout>
+
+
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="370dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:background="@drawable/bo_vien_nhe"
+                    android:backgroundTint="@color/green"
+                    android:textColor="@color/milk"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:layout_gravity="center"
+                    android:textSize="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Mua ngay" />
+
+                <TextView
+                    android:text="Đánh giá sản phẩm"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:paddingLeft="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Bình luận"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:paddingLeft="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
