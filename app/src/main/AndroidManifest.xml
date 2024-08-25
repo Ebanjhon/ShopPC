@@ -12,11 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileShopApp"
         tools:targetApi="31">
+
         <activity
             android:name=".CustomCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".AdminEmployeeMain"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".LoginAdminEmployee"

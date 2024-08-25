@@ -37,10 +37,19 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
+<!--                <FrameLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="300dp"-->
+<!--                    android:background="@color/xamnhe" />-->
+
+                <com.denzcoskun.imageslider.ImageSlider
+                    android:id="@+id/image_slider"
+                    android:layout_width="wrap_content"
                     android:layout_height="300dp"
-                    android:background="@color/xamnhe" />
+                    app:iss_auto_cycle="true"
+                    app:iss_period="1000"
+                    app:iss_delay="1000"
+                    app:iss_text_align="CENTER"/>
 
                 <TextView
                     android:id="@+id/nameProduct"
@@ -82,6 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/priceTxt"
                         android:textSize="29dp"
                         android:textStyle="bold"
                         android:fontFamily="@font/ibmplexsansbold"
@@ -142,8 +152,6 @@ Nguồn cấp: External Power Adaptor"
                             android:background="@drawable/border_infor" /> <!-- Áp dụng viền -->
                     </TableRow>
                 </TableLayout>
-
-
 
                 <Button
                     android:id="@+id/button4"

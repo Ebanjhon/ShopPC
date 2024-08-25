@@ -5,27 +5,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GridAdapter extends BaseAdapter {
     Context context;
-    String[] nameProduct, priceProduct, imgProduct;
-
+    List<Product> products = new ArrayList<>();
     LayoutInflater inflater;
 
-    public GridAdapter(Context context, String[] nameProduct, String[] priceProduct, String[] imgProduct) {
+//    public GridAdapter(Context context, String[] nameProduct, String[] priceProduct, String[] imgProduct) {
+//        this.context = context;
+//        this.nameProduct = nameProduct;
+//        this.priceProduct = priceProduct;
+//        this.imgProduct = imgProduct;
+//    }
+
+    public GridAdapter(Context context, List<Product> products) {
         this.context = context;
-        this.nameProduct = nameProduct;
-        this.priceProduct = priceProduct;
-        this.imgProduct = imgProduct;
+        this.products = products;
     }
 
     @Override
     public int getCount() {
-        return nameProduct.length;
+        return products.size();
     }
 
     @Override
@@ -37,7 +46,7 @@ public class GridAdapter extends BaseAdapter {
     public long getItemId(int i) {
         return 0;
     }
-
+    // hiển thị sản phẩm
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 
@@ -48,15 +57,32 @@ public class GridAdapter extends BaseAdapter {
         {
             view = inflater.inflate(R.layout.grid_products, null);
         }
-
+        TextView btnAdd = view.findViewById(R.id.buttonAdd);
         ImageView imageView = view.findViewById(R.id.gridImg);
         TextView namePro = view.findViewById(R.id.gridNameProduct);
         TextView pricePro = view.findViewById(R.id.gridPriceProduct);
 
-        Picasso.get().load(imgProduct[position]).into(imageView);
-        namePro.setText(nameProduct[position]);
-        pricePro.setText(priceProduct[position]);
+        Picasso.get().load(products.get(position).getImage()).into(imageView);
+        namePro.setText(setNameProduct(products.get(position).getName(), 25));
+        String price = String.valueOf(products.get(position).getPrice());
+        pricePro.setText(price + " VNĐ") ;
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // xử lý thêm sản pẩm vào giỏ
+                Toast.makeText(context, "add ok", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
+    }
+    // hàm giới hạn chuổi
+    public String setNameProduct(String str, int maxLength) {
+        if (str.length() > maxLength) {
+            return str.substring(0, maxLength) + "...";
+        } else {
+            return str;
+        }
     }
 }
