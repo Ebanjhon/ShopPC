@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,6 +42,20 @@ public class CategoryFragment extends Fragment {
         imgCancel = view.findViewById(R.id.btnCancelEdit);
         txtEditCate = view.findViewById(R.id.editTextCategory);
         ListView listv = (ListView) view.findViewById(R.id.listViewCate);
+
+        // back
+        TextView btnBack = view.findViewById(R.id.back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                } else {
+                    requireActivity().finish();
+                }
+            }
+        });
+
         // hàm lấy dữ liệu category
         db.collection("Categories")
                 .addSnapshotListener((value, error) -> {

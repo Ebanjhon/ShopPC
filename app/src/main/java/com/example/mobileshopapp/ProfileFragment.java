@@ -61,6 +61,19 @@ public class ProfileFragment extends Fragment {
         vPager = view.findViewById(R.id.viewPager);
         btnPiker = view.findViewById(R.id.imageButtonAvatar);
 
+        // back
+        TextView btnBack = view.findViewById(R.id.back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                } else {
+                    requireActivity().finish();
+                }
+            }
+        });
+
         // lấy dữ liệu
         TextView usrname = view.findViewById(R.id.username);
         usrname.setText(ur.getFirstname() + " " + ur.getLastname());

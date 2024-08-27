@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/btnBackProfile"
+            android:id="@+id/back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/back_left_30"
@@ -21,6 +21,7 @@
             android:textColor="@color/black"
             android:textSize="25dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,17 +31,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnBackProfile" >
+            app:layout_constraintTop_toBottomOf="@+id/back" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-<!--                <FrameLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="300dp"-->
-<!--                    android:background="@color/xamnhe" />-->
 
                 <com.denzcoskun.imageslider.ImageSlider
                     android:id="@+id/image_slider"
@@ -58,8 +54,7 @@
                     android:textSize="24dp"
                     android:fontFamily="@font/inter18ptmedium"
                     android:padding="7dp"
-                    android:textColor="@color/chuden"
-                    android:text="Màn hình LCD Lenovo 21.5 L22i-40 - 67AEKACBVN (1920 x 1080/IPS/75Hz/4 ms/FreeSync)" />
+                    android:textColor="@color/chuden"/>
 
                 <LinearLayout
                     android:paddingLeft="7dp"
@@ -80,8 +75,7 @@
                         android:textSize="21dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="Lenovo" />
+                        android:textColor="@color/black"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -97,12 +91,13 @@
                         android:fontFamily="@font/ibmplexsansbold"
                         android:textColor="@color/camprice"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2.100.000.VNĐ" />
+                        android:layout_height="wrap_content"/>
 
                     <Button
                         android:layout_gravity="right"
                         android:layout_marginLeft="10dp"
+                        android:backgroundTint="@color/violet"
+                        android:textColor="@color/milk"
                         android:text="Thêm vào giỏ hàng"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -112,50 +107,27 @@
                 <TextView
                     android:text="Mô tả sản phẩm"
                     android:textSize="20dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/violet"
                     android:textStyle="bold"
                     android:paddingLeft="7dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <TableLayout
+                <TextView
+                    android:id="@+id/textDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="1"
-                    android:padding="7dp"
-                    android:background="#ffffff">
-
-                    <TableRow>
-                        <TextView
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:text="Tương thích VESA"
-                            android:padding="8dp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:textColor="#000000"
-                            android:background="@drawable/border_infor" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:textSize="17dp"
-                            android:text="Chế độ Eco (giữ nguyên): 17W
-Eco Mode (optimized): 20W
-Tiêu thụ (điển hình): 24W
-Mức tiêu thụ (tối đa): 25W
-Vôn: AC 100-240V
-đứng gần: 0.3W
-Nguồn cấp: External Power Adaptor"
-                            android:padding="8dp"
-                            android:textColor="#000000"
-                            android:background="@drawable/border_infor" /> <!-- Áp dụng viền -->
-                    </TableRow>
-                </TableLayout>
+                    android:background="@drawable/border_infor"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="18dp" />
 
                 <Button
                     android:id="@+id/button4"
-                    android:layout_width="370dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:background="@drawable/bo_vien_nhe"
@@ -163,8 +135,8 @@ Nguồn cấp: External Power Adaptor"
                     android:textColor="@color/milk"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_gravity="center"
                     android:textSize="40dp"
                     android:layout_marginTop="20dp"
@@ -172,18 +144,9 @@ Nguồn cấp: External Power Adaptor"
                     android:text="Mua ngay" />
 
                 <TextView
-                    android:text="Đánh giá sản phẩm"
+                    android:text="Đánb giá và bình luận"
                     android:textSize="20dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:paddingLeft="7dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:text="Bình luận"
-                    android:textSize="20dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/violet"
                     android:textStyle="bold"
                     android:paddingLeft="7dp"
                     android:layout_width="wrap_content"
@@ -193,6 +156,50 @@ Nguồn cấp: External Power Adaptor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/editTextComment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="Nhập bình luận"
+                                android:inputType="text"/>
+
+                            <Button
+                                android:id="@+id/buttonSendComment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bo_vien_nhe"
+                                android:backgroundTint="@color/xanhblue"
+                                android:paddingLeft="30dp"
+                                android:paddingTop="10dp"
+                                android:paddingRight="30dp"
+                                android:paddingBottom="10dp"
+                                android:text="Gửi"
+                                android:textColor="@color/milk"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_margin="5dp"/>
+                    </LinearLayout>
                 </FrameLayout>
 
             </LinearLayout>

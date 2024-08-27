@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -59,6 +60,20 @@ public class CompanyFragment extends Fragment {
         viewImg = view.findViewById(R.id.imageViewLogo);
         txtEditCate = view.findViewById(R.id.editTextCom);
         ListView listv = (ListView) view.findViewById(R.id.listViewCom);
+
+        // back
+        TextView btnBack = view.findViewById(R.id.back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                } else {
+                    requireActivity().finish();
+                }
+            }
+        });
+
         // lấy dữ liệu
         db.collection("Companies")
                 .addSnapshotListener((value, error) -> {

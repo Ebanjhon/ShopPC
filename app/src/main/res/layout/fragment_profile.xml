@@ -8,7 +8,7 @@
     tools:context=".ProfileFragment">
 
     <TextView
-        android:id="@+id/btnBackProfile"
+        android:id="@+id/back"
         android:text="Profile"
         android:drawableLeft="@drawable/back_left_30"
         android:textSize="25dp"

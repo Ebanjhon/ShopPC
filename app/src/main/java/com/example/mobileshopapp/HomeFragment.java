@@ -108,8 +108,9 @@ public class HomeFragment extends Fragment {
                             String company = document.getString("company");
                             String cate = document.getString("category");
                             String imageProduct = document.getString("image");
+                            String detail = document.getString("detail");
                             int price = document.getLong("price").intValue();
-                            Product p = new Product(id, name, imageProduct,company,cate, price );
+                            Product p = new Product(id, name, imageProduct,company,cate, detail, price );
                             products.add(p);
                         }
                         GridAdapter gridAdapter = new GridAdapter(getActivity(), products);

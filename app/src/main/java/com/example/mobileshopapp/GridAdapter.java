@@ -12,13 +12,16 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class GridAdapter extends BaseAdapter {
     Context context;
     List<Product> products = new ArrayList<>();
     LayoutInflater inflater;
+    NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
 
 //    public GridAdapter(Context context, String[] nameProduct, String[] priceProduct, String[] imgProduct) {
 //        this.context = context;
@@ -64,8 +67,9 @@ public class GridAdapter extends BaseAdapter {
 
         Picasso.get().load(products.get(position).getImage()).into(imageView);
         namePro.setText(setNameProduct(products.get(position).getName(), 25));
-        String price = String.valueOf(products.get(position).getPrice());
-        pricePro.setText(price + " VNĐ") ;
+        String formattedNumber = formatter.format(products.get(position).getPrice());
+        formattedNumber = formattedNumber.replace(',', '.');
+        pricePro.setText(formattedNumber + " VNĐ") ;
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

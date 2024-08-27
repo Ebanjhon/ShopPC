@@ -8,16 +8,25 @@ import androidx.annotation.NonNull;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Product implements Parcelable {
-    private String id, name, image, company, category;
+    private String id, name, image, company, category, detail;
     private int price;
 
-    public Product(String id, String name, String image, String company, String category, int price) {
+    public Product(String id, String name, String image, String company, String category, String detail, int price) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.company = company;
         this.category = category;
+        this.detail = detail;
         this.price = price;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public String getCategory() {
@@ -75,6 +84,7 @@ public class Product implements Parcelable {
         image = in.readString();
         company = in.readString();
         category = in.readString();
+        detail = in.readString();
         price = in.readInt();
     }
 
@@ -85,6 +95,7 @@ public class Product implements Parcelable {
         parcel.writeString(image);
         parcel.writeString(company);
         parcel.writeString(category);
+        parcel.writeString(detail);
         parcel.writeInt(price);
     }
 

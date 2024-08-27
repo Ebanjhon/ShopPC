@@ -13,223 +13,250 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
+        <TextView
+            android:id="@+id/back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:drawableLeft="@drawable/back_left_30"
+            android:fontFamily="@font/robotomonoregular"
+            android:gravity=""
+            android:text="Product"
+            android:textColor="@color/black"
+            android:textSize="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/btnBack"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back">
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/back_left_30"
-                android:fontFamily="@font/robotomonoregular"
-                android:gravity=""
-                android:text="Product"
-                android:textColor="@color/black"
-                android:textSize="25dp" />
+                android:orientation="vertical">
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/robotomedium"
+                        android:gravity="start"
+                        android:text="Hình sản phẩm:"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <ImageButton
+                        android:id="@+id/btnCancelEdit"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/red"
+                        android:contentDescription="Right Image"
+                        android:src="@drawable/baseline_close_24"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:background="@color/xam"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="5dp"
+                    android:scrollbars="horizontal"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/buttonAdd"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:text="Chọn thêm ảnh"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/robotomedium"
+                            android:text="Danh mục:"
+                            android:textColor="@color/black"
+                            android:textSize="20dp" />
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/vien_nhap_lieu">
+
+                            <Spinner
+                                android:id="@+id/spinnerCategory"
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/black"
+                                android:drawablePadding="0dp"
+                                android:padding="5dp" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/robotomedium"
+                            android:text="Hãng:"
+                            android:textColor="@color/black"
+                            android:textSize="20dp" />
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/vien_nhap_lieu">
+
+                            <Spinner
+                                android:id="@+id/spinnerCompany"
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/black"
+                                android:drawablePadding="0dp"
+                                android:padding="5dp" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="140dp"
+                            android:layout_height="140dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/imagewait" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Ảnh hiển thị mặc định"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
                     android:fontFamily="@font/robotomedium"
-                    android:gravity="start"
-                    android:text="Hình sản phẩm:"
+                    android:text="Tên sản phẩm:"
                     android:textColor="@color/black"
                     android:textSize="20dp" />
 
-                <ImageButton
-                    android:id="@+id/btnCancelEdit"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/red"
-                    android:contentDescription="Right Image"
-                    android:src="@drawable/baseline_close_24"
-                    android:visibility="gone" />
-            </LinearLayout>
 
-
-            <LinearLayout
-                android:id="@+id/imageItem"
-                android:layout_marginTop="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:background="@color/xam"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageViewLogo"
-                    android:layout_width="130dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:src="@drawable/imagewait" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/robotomedium"
-                android:text="Danh mục:"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:background="@drawable/vien_nhap_lieu"
-                android:layout_height="wrap_content">
-
-                <Spinner
-                    android:id="@+id/spinnerCategory"
-                    android:layout_width="200dp"
+                <EditText
+                    android:id="@+id/editTextNameProduct"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:drawablePadding="0dp"
-                    android:padding="5dp" />
-            </FrameLayout>
+                    android:background="@drawable/bo_vien_nhe"
+                    android:backgroundTint="@color/xam"
+                    android:hint="Nhập tên sản phẩm"
+                    android:inputType="text"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="20dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/robotomedium"
-                android:text="Hãng:"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:background="@drawable/vien_nhap_lieu"
-                android:layout_height="wrap_content">
-
-                <Spinner
-                    android:id="@+id/spinnerCompany"
-                    android:layout_width="200dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/black"
-                    android:drawablePadding="0dp"
-                    android:padding="5dp" />
-            </FrameLayout>
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/robotomedium"
+                    android:text="Giá:"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/robotomedium"
-                android:layout_marginLeft="10dp"
-                android:text="Tên sản phẩm:"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                <EditText
+                    android:id="@+id/priceProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bo_vien_nhe"
+                    android:backgroundTint="@color/xam"
+                    android:hint="Nhập giá sản phẩm"
+                    android:inputType="number"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="20dp" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/robotomedium"
+                    android:text="Thông tin sản phẩm:"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
 
-            <EditText
-                android:id="@+id/editTextText2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:backgroundTint="@color/xam"
-                android:background="@drawable/bo_vien_nhe"
-                android:textSize="20dp"
-                android:hint="Nhập tên sản phẩm"
-                android:inputType="text"/>
+                <EditText
+                    android:id="@+id/editTextMultiLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/vien_cung"
+                    android:gravity="top|start"
+                    android:hint="Enter your text here"
+                    android:inputType="textMultiLine"
+                    android:maxLines="6"
+                    android:minLines="3"
+                    android:overScrollMode="always"
+                    android:padding="8dp"
+                    android:scrollbars="vertical" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/robotomedium"
-                android:layout_marginLeft="10dp"
-                android:text="Giá:"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                <Button
+                    android:id="@+id/btnCreateUpdateCom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/bo_vien_nhe"
+                    android:backgroundTint="@color/xanhblue"
+                    android:fontFamily="@font/robotomedium"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Create"
+                    android:textColor="@color/white"
+                    android:textSize="39dp" />
 
-            <EditText
-                android:id="@+id/priceProduct"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:backgroundTint="@color/xam"
-                android:background="@drawable/bo_vien_nhe"
-                android:textSize="20dp"
-                android:hint="Nhập giá sản phẩm"
-                android:inputType="number"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/robotomedium"
-                android:layout_marginLeft="10dp"
-                android:text="Thông tin sản phẩm:"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-
-
-<!--            <Button-->
-<!--                android:id="@+id/button3"-->
-<!--                android:layout_gravity="right"-->
-<!--                android:backgroundTint="@color/xanhblue"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Thêm thông tin " />-->
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/editTextMultiLine"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:gravity="top|start"
-            android:hint="Enter your text here"
-            android:inputType="textMultiLine"
-            android:maxLines="6"
-            android:minLines="3"
-            android:layout_marginBottom="5dp"
-            android:overScrollMode="always"
-            android:background="@drawable/vien_cung"
-            android:padding="8dp"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/btnCreateUpdateCom"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-
-        <Button
-            android:id="@+id/btnCreateUpdateCom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:backgroundTint="@color/xanhblue"
-            android:fontFamily="@font/robotomedium"
-            android:text="Create"
-            android:background="@drawable/bo_vien_nhe"
-            android:textColor="@color/white"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textSize="39dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
