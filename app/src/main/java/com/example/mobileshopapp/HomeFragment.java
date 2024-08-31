@@ -9,18 +9,24 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.InputType;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobileshopapp.databinding.ActivityMainBinding;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -31,11 +37,28 @@ public class HomeFragment extends Fragment {
     private GridView gridView;
     List<Category> categories = new ArrayList<>();
     List<Product> products = new ArrayList<>();
+    EditText editText;
+    String search;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    GridAdapter gridAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        editText = view.findViewById(R.id.searchProuct);
+        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    search = editText.getText().toString();
+                    showProduct(categories.get(0), search);
+                    return true;
+                }
+                return false;
+            }
+        });
         // ánh xạ
         linearlistCate = view.findViewById(R.id.linnerLayoutShowListCate);
         gridView = view.findViewById(R.id.gridViewHome);
@@ -50,6 +73,10 @@ public class HomeFragment extends Fragment {
                         // Xóa danh sách cũ trước khi thêm dữ liệu mới
                         categories.clear();
                         // Nạp dữ liệu vào list
+                        Category c0 = new Category("", "Tất cả");
+                        categories.add(c0);
+                        search = editText.getText().toString();
+                        showProduct(categories.get(0), search);
                         for (QueryDocumentSnapshot document : value) {
                             String id = document.getId();
                             String name = document.getString("name");
@@ -81,41 +108,14 @@ public class HomeFragment extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     // Hiển thị id và name của item khi nhấn vào TextView
-                                    Toast.makeText(getActivity(), "ID: " + item.getId() + ", Name: " + item.getName(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), item.getName(), Toast.LENGTH_SHORT).show();
+                                    search = editText.getText().toString();
+                                    showProduct(item, search);
                                 }
                             });
-
                             // Thêm TextView vào LinearLayout
                             linearlistCate.addView(textView);
                         }
-                    }
-                });
-
-        // dữ liệu product
-        db.collection("Products")
-                .addSnapshotListener((value, error) -> {
-                    if (error != null) {
-                        Toast.makeText(getActivity(), "Lỗi khi lắng nghe dữ liệu.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (value != null) {
-                        // Xóa danh sách cũ trước khi thêm dữ liệu mới
-                        products.clear();
-                        // Nạp dữ liệu vào list
-                        for (QueryDocumentSnapshot document : value) {
-                            String id = document.getId();
-                            String name = document.getString("name");
-                            String company = document.getString("company");
-                            String cate = document.getString("category");
-                            String imageProduct = document.getString("image");
-                            String detail = document.getString("detail");
-                            int price = document.getLong("price").intValue();
-                            Product p = new Product(id, name, imageProduct,company,cate, detail, price );
-                            products.add(p);
-                        }
-                        GridAdapter gridAdapter = new GridAdapter(getActivity(), products);
-                        gridView.setAdapter(gridAdapter);
-                        // Hiển thị dữ liệu
                     }
                 });
 
@@ -139,5 +139,58 @@ public class HomeFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutMain, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void showProduct(Category item, String searchQuery){
+        CollectionReference productsCollection = db.collection("Products");
+        Query query;
+        String categoryId = item.getId();
+
+        if (!categoryId.isEmpty() && !searchQuery.isEmpty()) {
+            // Lọc theo categoryId và tên sản phẩm
+            query = productsCollection
+                    .whereEqualTo("category", categoryId)
+                    .whereGreaterThanOrEqualTo("name", searchQuery)
+                    .whereLessThanOrEqualTo("name", searchQuery + "\uf8ff");
+        } else if (!categoryId.isEmpty()) {
+            // Lọc theo categoryId
+            query = productsCollection.whereEqualTo("category", categoryId);
+        } else if (!searchQuery.isEmpty()) {
+            // Tìm kiếm theo tên sản phẩm mà không lọc categoryId
+            query = productsCollection
+                    .whereGreaterThanOrEqualTo("name", searchQuery)
+                    .whereLessThanOrEqualTo("name", searchQuery + "\uf8ff");
+        } else {
+            // Lấy tất cả sản phẩm
+            query = productsCollection;
+        }
+
+        // Thực hiện truy vấn và lắng nghe dữ liệu
+        query.addSnapshotListener((value, error) -> {
+            if (error != null) {
+                Toast.makeText(getActivity(), "Lỗi khi lắng nghe dữ liệu.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (value != null) {
+                // Xóa danh sách cũ trước khi thêm dữ liệu mới
+                products.clear();
+                // Nạp dữ liệu vào list
+                for (QueryDocumentSnapshot document : value) {
+                    String id = document.getId();
+                    String name = document.getString("name");
+                    String company = document.getString("company");
+                    String cate = document.getString("category");
+                    String imageProduct = document.getString("image");
+                    String detail = document.getString("detail");
+                    int price = document.getLong("price").intValue();
+                    Product p = new Product(id, name, imageProduct, company, cate, detail, price);
+                    products.add(p);
+                }
+                // Cập nhật Adapter với dữ liệu mới
+                gridAdapter = new GridAdapter(getActivity(), products);
+                gridView.setAdapter(gridAdapter);
+            }
+        });
+
     }
 }

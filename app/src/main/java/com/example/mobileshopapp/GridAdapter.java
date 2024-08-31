@@ -69,7 +69,7 @@ public class GridAdapter extends BaseAdapter {
         namePro.setText(setNameProduct(products.get(position).getName(), 25));
         String formattedNumber = formatter.format(products.get(position).getPrice());
         formattedNumber = formattedNumber.replace(',', '.');
-        pricePro.setText(formattedNumber + " VNĐ") ;
+        pricePro.setText(formattedNumber + "đ") ;
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

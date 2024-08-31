@@ -1,5 +1,6 @@
 package com.example.mobileshopapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,25 +23,38 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ProductDetailFragment extends Fragment {
-    TextView nameProduct, compaPro, price, detail;
+    private TextView nameProduct, compaPro, price, detail;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference docRef;
     private Button btnComment;
     private EditText edtComment;
     private RecyclerView rvComment;
     private User user;
-    String productId;
-    ArrayList<SlideModel> imageList = new ArrayList<>();
+    private FirebaseAuth mAuth;
+    private DatabaseHelper dbHelper;
+    private String productId;
+    private ArrayList<SlideModel> imageList = new ArrayList<>();
     NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +68,8 @@ public class ProductDetailFragment extends Fragment {
         edtComment = view.findViewById(R.id.editTextComment);
         rvComment = view.findViewById(R.id.recyclerViewComment);
         detail = view.findViewById(R.id.textDetail);
-
+        dbHelper = new DatabaseHelper(requireContext());
+        mAuth = FirebaseAuth.getInstance();
         // back
         TextView btnBack = view.findViewById(R.id.back);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +124,7 @@ public class ProductDetailFragment extends Fragment {
                         // Lấy URL của từng ảnh
                         String imageUrl = document.getString("imageUrl");
                         if (imageUrl != null) {
-                            imageList.add(new SlideModel(imageUrl, "The animal population decreased by 58 percent in 42 years.", ScaleTypes.CENTER_CROP));
+                            imageList.add(new SlideModel(imageUrl, "Hình ảnh sản phẩm", ScaleTypes.CENTER_CROP));
                         }
                     }
                     // hiển thị ảnh
@@ -123,72 +138,90 @@ public class ProductDetailFragment extends Fragment {
                     System.err.println("Lỗi khi lấy ảnh: " + e.getMessage());
                 });
 
-        // bình luận
-//        db.collection("Comments").whereEqualTo("productId", productId).addSnapshotListener((value, error) -> {
-//            if (value != null) {
-//                ArrayList<Comment> comments = new ArrayList<>();
-//                for (DocumentSnapshot documentSnapshot : value.getDocuments()) {
-//                    Comment comment = documentSnapshot.toObject(Comment.class);
-//                    comments.add(comment);
-//                }
-//
-//                //sắp xếp giảm dần
-//                comments.sort((o1, o2) -> {
-//                    long time1 = Long.parseLong(o1.getDate());
-//                    long time2 = Long.parseLong(o2.getDate());
-//                    return (int) (time2 - time1);
-//                });
-//
-//                CommentAdapter commentAdapter = new CommentAdapter(comments, new CommentAdapter.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClickListener(Comment comment) {
-//                        comment("edit", comment);
-//                    }
-//                });
-//                rvComment.setAdapter(commentAdapter);
-//                rvComment.setLayoutManager(new LinearLayoutManager(getActivity()));
-//                commentAdapter.notifyDataSetChanged();
-//            }
-//        });
+        // lấy bình luận và hiển thị
+        db.collection("Comments")
+                .whereEqualTo("productId", productId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                            // Xử lý dữ liệu từ kết quả truy vấn
+                            ArrayList<Comment> comments = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                String userId = document.getString("userId");
+                                String content = document.getString("content");
+                                Long timeCreate = document.getLong("timeCreate");
+
+                                Comment comment = new Comment(document.getId(), productId, userId, content, timeCreate);
+                                comments.add(comment);
+                            }
+                            // hàm xắp sếp thời gian
+                            Collections.sort(comments, new Comparator<Comment>() {
+                                @Override
+                                public int compare(Comment c1, Comment c2) {
+                                    return c1.getDate().compareTo(c2.getDate());
+                                }
+                            });
+                            rvComment.setLayoutManager(new LinearLayoutManager(getContext()));
+                            CommentAdapter commentAdapter = new CommentAdapter(getContext(), comments);
+                            rvComment.setAdapter(commentAdapter);
+                        } else {
+                            // Không có comment nào với productId này
+                        }
+                    } else {
+                        // Truy vấn thất bại
+                        Toast.makeText(getActivity(), "Lỗi khi lấy dữ liệu bình luận", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        // hàm tạo cmt
+        btnComment.setOnClickListener(v -> {
+            String content = edtComment.getText().toString();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser == null){
+                Toast.makeText(getActivity(), "Vui Lòng đăng nhập để Bình luận!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (content.isEmpty()) {
+                Toast.makeText(getActivity(), "Vui lòng nhập bình luận!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // Tạo tham chiếu đến collection "Comments"
+            CollectionReference commentsRef = db.collection("Comments");
+
+            // Dữ liệu cho comment mới
+            Map<String, Object> comment = new HashMap<>();
+            comment.put("productId", productId); // Thay thế PRODUCT_ID_HERE bằng ID sản phẩm
+            comment.put("userId", currentUser.getUid()); // Thay thế USER_ID_HERE bằng ID người dùng
+            comment.put("content", content);
+            comment.put("timeCreate", System.currentTimeMillis()); // Thời gian tạo dưới dạng timestamp
+
+            // Thêm comment mới vào Firestore
+            commentsRef.add(comment)
+                    .addOnSuccessListener(documentReference -> {
+                        // Thành công
+                        Toast.makeText(getActivity(), "Tạo bình luận thành công!", Toast.LENGTH_SHORT).show();
+                        edtComment.setText("");
+                    })
+                    .addOnFailureListener(e -> {
+                        // Thất bại
+                        Toast.makeText(getActivity(), "Tạo bình luận thất bại!", Toast.LENGTH_SHORT).show();
+                    });
+
+        });
 
         return view;
     }
-//    private void comment(String type, Comment comment) {
-//        if (type.equals("edit")) {
-//            edtComment.setText(comment.getText());
-//        }
-//
-//        btnComment.setOnClickListener(v -> {
-//            String _comment = edtComment.getText().toString();
-//            if (_comment.isEmpty()) {
-//                Toast.makeText(getActivity(), "Vui nhap binh luan", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//            // gọi hàm đăng ký ng dùng
-//            if (type.equals("edit")) {
-//                comment.setText(_comment);
-//                comment.setDate(System.currentTimeMillis() + "");
-//                db.collection("Comments").document(comment.getId()).set(comment).addOnSuccessListener(aVoid -> {
-//                    Toast.makeText(getActivity(), "Sua binh luan thanh cong", Toast.LENGTH_SHORT).show();
-//                    edtComment.setText("");
-//                });
-//            } else {
-//                String id = db.collection("Comments").document().getId();
-//                Comment comment1 = new Comment(id, productId, user.getIdUser(), _comment, System.currentTimeMillis() + "");
-//                db.collection("Comments").document(id).set(comment1).addOnSuccessListener(aVoid -> {
-//                    Toast.makeText(getActivity(), "Gui binh luan thanh cong", Toast.LENGTH_SHORT).show();
-//                    edtComment.setText("");
-//                });
-//            }
-//
-//        });
-//    }
 
-    private void chuyenDoiManHinh(Fragment fragment)
+    public void chuyenDoiManHinh(Fragment fragment)
     {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutMain, fragment);
         fragmentTransaction.commit();
     }
+
+
 }

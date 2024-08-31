@@ -17,15 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -61,10 +58,11 @@ public class SecondRegister extends Fragment {
             @Override
             public void onClick(View view) {
                 // kiếm tra đầu vào
-                String urname, password, passwordCheck, numPhone;
+                String urname, password, passwordCheck, numPhone, avatar;
                 urname = username.getText().toString();
                 numPhone = phone.getText().toString();
                 password = pass.getText().toString();
+                avatar = "";
                 passwordCheck = passcheck.getText().toString();
                 if(urname.isEmpty()||password.isEmpty()||passwordCheck.isEmpty()||numPhone.isEmpty())
                 {
@@ -98,14 +96,14 @@ public class SecondRegister extends Fragment {
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         String uid = user.getUid();
-                                        createDataUser(uid, firstname, lastname, address, birthday, numPhone, urname);
+                                        createDataUser(uid, firstname, lastname, address, birthday, numPhone, urname, avatar);
                                         Toast.makeText(getActivity(), "Đăng ký Thành công", Toast.LENGTH_SHORT).show();
                                         DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
                                         // tạo đối tượng user
-                                        User u = new User(mAuth.getUid(), urname
+                                        User u = new User(uid, urname
                                                 ,"client", firstname
                                                 ,lastname, email
-                                                ,numPhone, ""
+                                                ,numPhone, avatar
                                                 ,address, birthday);
                                         // lưu dữ liệu váo sql
                                         dbHelper.addUser(u);
@@ -145,7 +143,7 @@ public class SecondRegister extends Fragment {
     }
 
     // gọi hàm thêm dữ liệu user vào database
-    private void createDataUser(String uid, String firstname, String lastname, String address, String birthday, String phone, String username) {
+    private void createDataUser(String uid, String firstname, String lastname, String address, String birthday, String phone, String username, String avatar) {
         // Tạo một đối tượng Map để lưu dữ liệu người dùng
         Map<String, Object> user = new HashMap<>();
         user.put("username", username);
@@ -155,6 +153,7 @@ public class SecondRegister extends Fragment {
         user.put("phone", phone);
         user.put("address", address);
         user.put("birthday", birthday);
+        user.put("avatar", avatar);
 
         // Sử dụng set() với document ID tùy chỉnh (ở đây là uid)
         db.collection("Users")

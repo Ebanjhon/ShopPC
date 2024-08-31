@@ -49,7 +49,7 @@ public class AdminEmployeeMain extends AppCompatActivity {
                 if(R.id.Home == itemId) {
                     chuyenDoiManHinh(new AdminMainFragment());
                 }else if (R.id.Product == itemId) {
-//                    chuyenDoiManHinh(new FilterFragment());
+                    chuyenDoiManHinh(new ProductFragment());
                 }else if (R.id.Statistic == itemId) {
 //                    chuyenDoiManHinh(new FilterFragment());
                 }else if (R.id.Order == itemId) {

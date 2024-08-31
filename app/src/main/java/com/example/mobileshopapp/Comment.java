@@ -5,9 +5,9 @@ public class Comment {
     private String productId;
     private String userId;
     private String text;
-    private String date;
+    private Long date;
 
-    public Comment(String id, String productId, String userId, String text, String date) {
+    public Comment(String id, String productId, String userId, String text, Long date) {
         this.id = id;
         this.productId = productId;
         this.userId = userId;
@@ -50,11 +50,11 @@ public class Comment {
         this.text = text;
     }
 
-    public String getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 }

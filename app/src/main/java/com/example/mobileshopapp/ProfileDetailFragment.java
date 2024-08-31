@@ -50,6 +50,7 @@ public class ProfileDetailFragment extends Fragment {
         btnLogout = view.findViewById(R.id.btnlgout);
         mAuth = FirebaseAuth.getInstance();
 
+        // hàm đăng xuất
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +58,6 @@ public class ProfileDetailFragment extends Fragment {
                 dbHelper.deleteTable();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
-//                chuyenDoiManHinh(new NotSignInFragment());
             }
         });
         // lấy user
