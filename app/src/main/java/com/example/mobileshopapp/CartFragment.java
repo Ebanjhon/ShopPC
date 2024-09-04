@@ -6,20 +6,36 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class CartFragment extends Fragment {
-
     private FirebaseAuth mAuth;
-
+    private RecyclerView recyclerView;
+    private CartAdapter cartAdapter;
+    private CartManager cartManager;
+    private TextView total;
+    private DatabaseHelper dbHelper;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Button btnPay;
+    private List<Cart> cartProduct = new ArrayList<>();
     @Override
     public void onStart() {
         super.onStart();
@@ -30,12 +46,56 @@ public class CartFragment extends Fragment {
             chuyenDoiManHinh(new CartNotLoginFragment());
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        btnPay = view.findViewById(R.id.btnPay);
+        recyclerView = view.findViewById(R.id.cartRecycleView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        total = view.findViewById(R.id.txtTong);
+        cartManager = new CartManager(getContext());
+        cartAdapter = new CartAdapter(getContext(),cartManager.getAllItemCart(), total);
+        recyclerView.setAdapter(cartAdapter);
+        dbHelper = new DatabaseHelper(requireContext());
+        User user = dbHelper.getUser();
+
+        // hàm thanh toán
+        btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cartProduct = cartManager.getAllItemCart();
+                // Tạo đối tượng Order
+                List<Map<String, Object>> cartList = new ArrayList<>();
+                for (Cart cart : cartProduct) {
+                    Map<String, Object> cartMap = new HashMap<>();
+                    cartMap.put("id", cart.getIdCart());
+                    cartMap.put("quantity", cart.getQuantity());
+                    cartList.add(cartMap);
+                }
+
+                // Lưu đơn hàng vào Firestore
+                Map<String, Object> orderMap = new HashMap<>();
+                orderMap.put("userId", user.getIdUser());
+                orderMap.put("total", cartAdapter.getTotalPriceProduct());
+                orderMap.put("carts", cartList);
+
+                // Lưu đơn hàng vào Firestore
+                db.collection("Orders")
+                        .add(orderMap)
+                        .addOnSuccessListener(documentReference -> {
+                            Toast.makeText(getActivity(), "Đã lưu đơn hàng thành công!", Toast.LENGTH_SHORT).show();
+                            cartManager.clearCart();
+                            chuyenDoiManHinh(new HomeFragment());
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getActivity(), "Đã lưu đơn hàng thất bại!", Toast.LENGTH_SHORT).show();
+                        });
+
+            }
+        });
+
+        return view;
     }
 
     private void chuyenDoiManHinh(Fragment fragment)

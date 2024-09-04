@@ -23,13 +23,6 @@ public class GridAdapter extends BaseAdapter {
     LayoutInflater inflater;
     NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
 
-//    public GridAdapter(Context context, String[] nameProduct, String[] priceProduct, String[] imgProduct) {
-//        this.context = context;
-//        this.nameProduct = nameProduct;
-//        this.priceProduct = priceProduct;
-//        this.imgProduct = imgProduct;
-//    }
-
     public GridAdapter(Context context, List<Product> products) {
         this.context = context;
         this.products = products;
@@ -75,7 +68,9 @@ public class GridAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 // xử lý thêm sản pẩm vào giỏ
-                Toast.makeText(context, "add ok", Toast.LENGTH_SHORT).show();
+                CartManager cartManager = new CartManager(context);
+                cartManager.addToCart(products.get(position).getId(),products.get(position).getName(), products.get(position).getImage(), products.get(position).getPrice(), 1);
+                Toast.makeText(context, "Đã thêm sản phẩm vào giỏ!", Toast.LENGTH_SHORT).show();
             }
         });
 

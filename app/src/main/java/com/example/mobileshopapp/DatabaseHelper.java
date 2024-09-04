@@ -9,8 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "userdatabase.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
+    // thông tin các trường cho user
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_ID_USER = "idUser";
     public static final String COLUMN_USERNAME = "username";
@@ -23,12 +24,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ADDRESS = "address";
     public static final String COLUMN_BIRTHDATE = "birthDate";
 
+    // thông tin các trường cho CART
+    public static final String TABLE_CART_NAME = "carts";
+    public static final String COLUMN_ID_PRODUCT = "idProduct";
+    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_IMAGE = "image";
+    public static final String COLUMN_PRICE = "price";
+    public static final String COLUMN_QUANTITY = "quantity";
+
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // tạo bảng user
         String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_NAME + "("
                 + COLUMN_ID_USER + " TEXT PRIMARY KEY,"
                 + COLUMN_USERNAME + " TEXT,"
@@ -41,11 +52,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_ADDRESS + " TEXT,"
                 + COLUMN_BIRTHDATE + " TEXT" + ")";
         db.execSQL(CREATE_USER_TABLE);
+
+        // Tạo bảng cart
+        String CREATE_CART_TABLE = "CREATE TABLE " + TABLE_CART_NAME + "("
+                + COLUMN_ID_PRODUCT + " TEXT PRIMARY KEY,"
+                + COLUMN_NAME + " TEXT,"
+                + COLUMN_IMAGE + " TEXT,"
+                + COLUMN_PRICE + " REAL,"
+                + COLUMN_QUANTITY + " INTEGER"
+                + ")";
+        db.execSQL(CREATE_CART_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CART_NAME);
         onCreate(db);
     }
 
@@ -127,5 +149,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          int count = db.update(TABLE_NAME, values, selection, selectionArgs);
          db.close();
      }
+
+    // Xóa người dùng theo ID
+    public void deleteUserById(String userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Điều kiện xóa dựa trên ID người dùng
+        String selection = COLUMN_ID_USER + " = ?";
+        String[] selectionArgs = { userId };
+
+        // Xóa dữ liệu khỏi bảng
+        db.delete(TABLE_NAME, selection, selectionArgs);
+        db.close();
+    }
+
 
 }

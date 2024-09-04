@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bo_vien_nhe"
+    android:layout_margin="2dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Hình ảnh sản phẩm -->
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/productImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/imagewait" />
+
+        <!-- Chi tiết sản phẩm -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Tên sản phẩm -->
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Product Name sản phẩm mới tên gọi là máy tính cẩm tay px  asd chơi ược mọi"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Giá sản phẩm -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="200.000đ"
+                    android:textColor="@color/violet"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="start" />
+
+                <TextView
+                    android:id="@+id/btn_deleteProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
+                    android:textColor="@color/red"
+                    android:paddingRight="10dp"
+                    android:text="Xóa"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <!-- Số lượng sản phẩm -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/chuden"
+                    android:layout_marginRight="7dp"
+                    android:text="Số lượng:"
+                    android:textSize="25sp" />
+
+                <ImageButton
+                    android:layout_gravity="center"
+                    android:id="@+id/btnIncrease"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/baseline_add_24"
+                    android:background="@drawable/bo_tron"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/product_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="x99"
+                    android:textColor="@color/violet"
+                    android:textSize="22sp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"/>
+
+                <ImageButton
+                    android:layout_gravity="center"
+                    android:id="@+id/btnDecrease"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/baseline_remove_24"
+                    android:background="@drawable/bo_tron"
+                    android:layout_marginStart="4dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Nút xóa sản phẩm -->
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+

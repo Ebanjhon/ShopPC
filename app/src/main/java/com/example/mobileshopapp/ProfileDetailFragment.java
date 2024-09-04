@@ -54,8 +54,8 @@ public class ProfileDetailFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dbHelper.deleteUserById(mAuth.getUid());
                 mAuth.signOut();
-                dbHelper.deleteTable();
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
             }
