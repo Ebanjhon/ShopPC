@@ -11,31 +11,80 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class ListOrderFragment extends Fragment {
 
-    private RecyclerView rv_list_order;
-    private AdapterDateOrder adapterDateOrder;
-    private Order order;
-    public ListOrderFragment() {
-        // Required empty public constructor
-    }
+    private RecyclerView rvListOrder;
+    private FirebaseFirestore db;
+    private List<Order> ordersList = new ArrayList<>();
+    private UserManager userManager;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_order, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_list_order, container, false);
+        rvListOrder = view.findViewById(R.id.rv_list_order);
+
+        db = FirebaseFirestore.getInstance();
+        userManager = new UserManager(getContext());
+
+        fetchOrders();
+
+        return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        rv_list_order = view.findViewById(R.id.rv_list_order);
+    private void fetchOrders() {
+        String idUser = userManager.getFirstUser().getIdUser();
+        db.collection("Orders")
+                .whereEqualTo("userId", idUser)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        ordersList.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String orderId = document.getId();
+                            String orderDate = document.getString("orderDate");
+                            Boolean state = document.getBoolean("isPaid");
+                            double total = document.getDouble("total");
 
-        order = new Order();
-        adapterDateOrder = new AdapterDateOrder(order.orders(), getActivity());
-        rv_list_order.setAdapter(adapterDateOrder);
-        rv_list_order.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            Order order = new Order(orderId, idUser, orderDate, state, total);
+                            ordersList.add(order);
+                        }
+                        updateRecyclerView(); // Cập nhật RecyclerView với dữ liệu mới
+                    } else {
+                        Toast.makeText(getContext(), "Lấy dữ liệu thất bại!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void updateRecyclerView() {
+        Map<String, List<Order>> ordersByMonth = new HashMap<>();
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM/yyyy", Locale.getDefault());
+
+        for (Order order : ordersList) {
+            // Sử dụng phương thức getOrderDateAsDate() đã cập nhật
+            String month = monthFormat.format(order.getOrderDateAsDate());
+
+            if (!ordersByMonth.containsKey(month)) {
+                ordersByMonth.put(month, new ArrayList<>());
+            }
+
+            ordersByMonth.get(month).add(order);
+        }
+
+        // Cập nhật RecyclerView với Adapter mới
+        AdapterDateOrder adapterDateOrder = new AdapterDateOrder(ordersByMonth, getContext());
+        rvListOrder.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvListOrder.setAdapter(adapterDateOrder);
     }
 }

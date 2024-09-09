@@ -17,16 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 public class AdapterDateOrder extends RecyclerView.Adapter<AdapterDateOrder.ViewHolder> {
-    private List<Order> listOrder;
-    private Context context;
-    private DatabaseHelper dbHelper;
-    private Map<String, List<Order>> groupedOrders;
 
-    public AdapterDateOrder(List<Order> listOrder, Context context) {
-        this.listOrder = listOrder;
+    private Map<String, List<Order>> dateOrderMap; // Dữ liệu được nhóm theo tháng
+    private Context context;
+
+    public AdapterDateOrder(Map<String, List<Order>> dateOrderMap, Context context) {
+        this.dateOrderMap = dateOrderMap;
         this.context = context;
-        this.dbHelper = new DatabaseHelper(context);
-        this.groupedOrders = groupOrdersByMonth(listOrder);
     }
 
     @NonNull
@@ -38,43 +35,32 @@ public class AdapterDateOrder extends RecyclerView.Adapter<AdapterDateOrder.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String month = (new ArrayList<>(groupedOrders.keySet())).get(position);
-        holder.tvDate.setText("Tháng " + month);
+        // Lấy danh sách các tháng
+        String[] months = dateOrderMap.keySet().toArray(new String[0]);
+        String month = months[position];
+        List<Order> ordersInMonth = dateOrderMap.get(month);
 
-        List<Order> ordersForMonth = groupedOrders.get(month);
+        holder.textViewDate.setText(month); // Hiển thị tháng
 
-        AdapterOrder orderAdapter = new AdapterOrder(ordersForMonth, context);
-        holder.rvOrder.setLayoutManager(new LinearLayoutManager(context));
-        holder.rvOrder.setAdapter(orderAdapter);
+        // Thiết lập adapter cho RecyclerView bên trong
+        AdapterOrder adapterOrder = new AdapterOrder(ordersInMonth, context);
+        holder.recyclerViewOrder.setLayoutManager(new LinearLayoutManager(context));
+        holder.recyclerViewOrder.setAdapter(adapterOrder);
     }
 
     @Override
     public int getItemCount() {
-        return groupedOrders.size();
+        return dateOrderMap.size(); // Số lượng các tháng
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDate;
-        RecyclerView rvOrder;
+        TextView textViewDate;
+        RecyclerView recyclerViewOrder;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvDate = itemView.findViewById(R.id.textViewDate);
-            rvOrder = itemView.findViewById(R.id.recyclerViewOrder);
+            textViewDate = itemView.findViewById(R.id.textViewDate);
+            recyclerViewOrder = itemView.findViewById(R.id.recyclerViewOrder);
         }
-    }
-    private Map<String, List<Order>> groupOrdersByMonth(List<Order> orders) {
-        Map<String, List<Order>> groupedOrders = new HashMap<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM");
-
-        for (Order order : orders) {
-            String month = sdf.format(Long.parseLong(order.getOrderDate()));
-            if (!groupedOrders.containsKey(month)) {
-                groupedOrders.put(month, new ArrayList<>());
-            }
-            groupedOrders.get(month).add(order);
-        }
-
-        return groupedOrders;
     }
 }

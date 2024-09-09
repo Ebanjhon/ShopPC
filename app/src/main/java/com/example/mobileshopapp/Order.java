@@ -1,24 +1,24 @@
 package com.example.mobileshopapp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Order {
     private String orderID;
     private String userID;
-    private String productID;
     private String orderDate;
-    private String state;
+    private boolean state;
+    private double total;
 
-    public Order(String orderID, String userID, String productID, String orderDate, String state) {
+    public Order(String orderID, String userID, String orderDate, boolean state, double total) {
         this.orderID = orderID;
         this.userID = userID;
-        this.productID = productID;
         this.orderDate = orderDate;
         this.state = state;
-    }
-
-    public Order() {
+        this.total = total;
     }
 
     public String getOrderID() {
@@ -37,14 +37,6 @@ public class Order {
         this.userID = userID;
     }
 
-    public String getProductID() {
-        return productID;
-    }
-
-    public void setProductID(String productID) {
-        this.productID = productID;
-    }
-
     public String getOrderDate() {
         return orderDate;
     }
@@ -53,21 +45,32 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public String getState() {
+    public boolean getState() {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public double getTotal() {
+        return total;
     }
 
-    public List<Order> orders(){
-        List<Order> orders = new ArrayList<>();
-        orders.add(new Order("1", "wRBRRjJvucTlvSfsm5QKdGavFPy1", "MVfWCQCZUmMzFqpizVzm", "1727315035000", "Đã giao"));
-        orders.add(new Order("2", "wRBRRjJvucTlvSfsm5QKdGavFPy1", "lKl2HTv6k0JBlkRUYvj1", "1724636635000", "Đã giao"));
-        orders.add(new Order("3", "wRBRRjJvucTlvSfsm5QKdGavFPy1", "lKl2HTv6k0JBlkRUYvj1", "1727401435000", "Đã giao"));
-        orders.add(new Order("4", "wRBRRjJvucTlvSfsm5QKdGavFPy1", "MVfWCQCZUmMzFqpizVzm", "1726883035000", "Đã giao"));
-        orders.add(new Order("5", "wRBRRjJvucTlvSfsm5QKdGavFPy1", "U8nMs2XFR66BCDGNXJD4", "1724204635000", "Đã giao"));
-        return orders;
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public Date getOrderDateAsDate() {
+        // Cập nhật định dạng ngày tháng để phù hợp với định dạng lưu trên Firebase
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            return dateFormat.parse(orderDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getFormattedTotal() {
+        // Sử dụng NumberFormat cho định dạng tiền tệ
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        return currencyFormat.format(total);
     }
 }
