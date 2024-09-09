@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         db.collection("Categories")
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
-                        Toast.makeText(getActivity(), "Lỗi khi lắng nghe dữ liệu.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Lỗi khi lắng nghe dữ liệu danh mục.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (value != null) {
@@ -168,7 +168,7 @@ public class HomeFragment extends Fragment {
         // Thực hiện truy vấn và lắng nghe dữ liệu
         query.addSnapshotListener((value, error) -> {
             if (error != null) {
-                Toast.makeText(getActivity(), "Lỗi khi lắng nghe dữ liệu.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lỗi khi lắng nghe dữ liệu sản phẩm.", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (value != null) {

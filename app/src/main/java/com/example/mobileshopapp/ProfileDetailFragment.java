@@ -28,7 +28,7 @@ public class ProfileDetailFragment extends Fragment {
     private Button btnLogout;
     private FirebaseAuth mAuth;
     private DatabaseHelper dbHelper;
-
+    private CartManager cartMana;
     @Override
     public void onStart() {
         super.onStart();
@@ -54,12 +54,18 @@ public class ProfileDetailFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dbHelper.deleteUserById(mAuth.getUid());
                 mAuth.signOut();
+//                dbHelper.deleteUserById(mAuth.getUid());
+                dbHelper.cleanUsers();
+//                cartMana.clearCart();
                 Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if(currentUser == null){
+                    startActivity(intent);
+                }
             }
         });
+
         // lấy user
         User user= dbHelper.getUser();
         TextView username, address, role, birthdate, phone, email;
@@ -80,11 +86,4 @@ public class ProfileDetailFragment extends Fragment {
         return view;
     }
 
-    private void chuyenDoiManHinh(Fragment fragment)
-    {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayoutMain, fragment);
-        fragmentTransaction.commit();
-    }
 }

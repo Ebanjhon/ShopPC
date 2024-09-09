@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "userdatabase.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     // thông tin các trường cho user
     public static final String TABLE_NAME = "users";
@@ -163,5 +163,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
+    public void cleanUsers() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, null, null); // Xóa tất cả bản ghi trong bảng users
+        db.close();
+    }
 }

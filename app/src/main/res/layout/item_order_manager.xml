@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="10dp"
+    android:backgroundTint="@color/gray2"
+    android:elevation="4dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/idOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Mã đơn: KHKLJBlkjbJKHBjhbkjhbLKJOUHWIUFHWIUHFKUIF" />
+
+        <TextView
+            android:id="@+id/nameClient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tên khách hàng: Y Jhon ÊBan" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng đơn hàng:" />
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="125.200.000 VNĐ" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày đặt đơn hàng:" />
+
+            <TextView
+                android:id="@+id/dayOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="10:17-09/09/2024" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:layout_weight="1"
+                android:text="Tình trạng đơn hàng" />
+
+            <TextView
+                android:id="@+id/status_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:gravity="right"
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:text="chưa xác nhận" />
+
+            <Button
+                android:layout_gravity="right"
+                android:id="@+id/btnAccept"
+                android:layout_width="100dp"
+                android:visibility="gone"
+                android:background="@drawable/bo_vien_nhe"
+                android:backgroundTint="@color/xanhblue"
+                android:layout_height="30dp"
+                android:textSize="15dp"
+                android:textColor="@color/xamnhe"
+                android:text="Xác nhận" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

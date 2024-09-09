@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +20,7 @@ import java.util.Locale;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder>  {
     NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+
     Context context;
     TextView totalPrice;
     private List<Cart> cartList;
@@ -51,7 +51,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Cart cartItem = cartList.get(position);
-        totalPriceCart(cartList);
         holder.productName.setText(cartItem.getName());
         String formattedNumber = formatter.format(cartItem.getPrice());
         formattedNumber = formattedNumber.replace(',', '.');
@@ -60,19 +59,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         Picasso.get().load(cartItem.getImage()).into(holder.productImage);
 
         holder.btnIncrease.setOnClickListener(v -> {
-            cartItem.setQuantity(cartItem.getQuantity()+1);
+            cartItem.setQuantity(cartItem.getQuantity() + 1);
             cartList.get(position).setQuantity(cartItem.getQuantity());
             holder.productQuantity.setText(String.format("x%d", cartItem.getQuantity()));
-            cartMana.updateCartItemQuantity(cartItem.getIdCart(),cartItem.getQuantity());
+            cartMana.updateCartItemQuantity(cartItem.getIdCart(), cartItem.getQuantity());
+            // Chỉ gọi sau khi đã thay đổi số lượng
             totalPriceCart(cartList);
         });
 
         holder.btnDecrease.setOnClickListener(v -> {
-            if(cartItem.getQuantity() == 1){return;}
-            cartItem.setQuantity(cartItem.getQuantity()-1);
+            if(cartItem.getQuantity() == 1) return;
+            cartItem.setQuantity(cartItem.getQuantity() - 1);
             cartList.get(position).setQuantity(cartItem.getQuantity());
             holder.productQuantity.setText(String.format("x%d", cartItem.getQuantity()));
-            cartMana.updateCartItemQuantity(cartItem.getIdCart(),cartItem.getQuantity());
+            cartMana.updateCartItemQuantity(cartItem.getIdCart(), cartItem.getQuantity());
+            // Chỉ gọi sau khi đã thay đổi số lượng
             totalPriceCart(cartList);
         });
 
@@ -82,11 +83,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             cartList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, cartList.size());
-            // cập nhật giá
+            // Chỉ gọi sau khi đã xóa item
             totalPriceCart(cartList);
         });
-        totalPriceCart(cartList);
     }
+
 
     @Override
     public int getItemCount() {
@@ -111,14 +112,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     // hàm tính tổng cart
-    public void totalPriceCart(List<Cart> cartList){
+    public void totalPriceCart(List<Cart> cartList) {
         double total = 0.0;
         for (Cart cart : cartList) {
             total += cart.getPrice() * cart.getQuantity();
         }
         setTotalPriceProduct(total);
         // Định dạng số với dấu phân cách hàng nghìn và ký tự tiền tệ
-        DecimalFormat formatter = new DecimalFormat("#,###.##đ");
-        totalPrice.setText( formatter.format(total));
+        DecimalFormat formatterDecimal = new DecimalFormat("#,###.##đ");
+        String textTotal = formatterDecimal.format(total);
+        if (totalPrice != null) {
+            totalPrice.setText(textTotal);
+        }
     }
+
 }

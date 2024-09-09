@@ -39,6 +39,7 @@ public class AdminEmployeeMain extends AppCompatActivity {
         }
         else{
             bottomNavView.inflateMenu(R.menu.bottom_nav_menu_employee);
+            chuyenDoiManHinh(new ProductFragment());
         }
 
         // nghe sự kiện nhấn vào botton nav
@@ -53,7 +54,7 @@ public class AdminEmployeeMain extends AppCompatActivity {
                 }else if (R.id.Statistic == itemId) {
 //                    chuyenDoiManHinh(new FilterFragment());
                 }else if (R.id.Order == itemId) {
-//                    chuyenDoiManHinh(new CartFragment());
+                    chuyenDoiManHinh(new OrderFragment());
                 }else if (R.id.Profile == itemId) {
                     FirebaseUser currentUser = mAuth.getCurrentUser();
                     if(currentUser == null){

@@ -1,7 +1,6 @@
 package com.example.mobileshopapp;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,78 +9,72 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Objects;
 
 public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.ViewHolder> {
-    private List<Order> listOrder;
+    private List<Order> orders;
     private Context context;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public AdapterOrder(List<Order> listOrder, Context context) {
-        this.listOrder = listOrder;
+    public AdapterOrder(List<Order> orders, Context context) {
+        this.orders = orders;
         this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_order, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Order order = listOrder.get(position);
-        fetchProductData(order, holder);
+        Order order = orders.get(position);
+
+        // Hiển thị thông tin đơn hàng
+        holder.tvOrderID.setText("Mã đơn: " + order.getOrderID());
+        holder.tvOrderDate.setText(formatOrderDate(order.getOrderDate()));
+        if(order.getState())
+        {
+            holder.tvOrderStateT.setVisibility(View.VISIBLE);
+        }else {
+            holder.tvOrderStateF.setVisibility(View.VISIBLE);
+        }
+        holder.tvOrderTotal.setText(order.getFormattedTotal());
     }
 
     @Override
     public int getItemCount() {
-        return listOrder.size();
+        return orders.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvProductName, tvPrice, tvState, tvDate;
+        TextView tvOrderID;
+        TextView tvOrderDate;
+        TextView tvOrderStateT;
+        TextView tvOrderStateF;
+        TextView tvOrderTotal;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvProductName = itemView.findViewById(R.id.textViewShop);
-            tvPrice = itemView.findViewById(R.id.textViewOrderTotalValue);
-            tvState = itemView.findViewById(R.id.textViewOrderStatus);
-            tvDate = itemView.findViewById(R.id.textViewOrderTimeValue);
+            tvOrderID = itemView.findViewById(R.id.orderID);
+            tvOrderDate = itemView.findViewById(R.id.orderDate);
+            tvOrderStateT = itemView.findViewById(R.id.status_true);
+            tvOrderStateF = itemView.findViewById(R.id.status_false);
+            tvOrderTotal = itemView.findViewById(R.id.orderPrice);
         }
     }
 
-    private void fetchProductData(Order order, ViewHolder holder) {
-        Log.d("TAGAPI", "fetchProductData: " + order.getProductID());
-        db.collection("Products")
-                .addSnapshotListener((value, error) -> {
-                    if (error != null) {
-                        return;
-                    }
-                    if (value != null) {
-                        // Xóa danh sách cũ trước khi thêm dữ liệu mới
-                        // Nạp dữ liệu vào list
-                        for (QueryDocumentSnapshot document : value) {
-                            String id = document.getId();
-                            Log.d("TAGAPI", id);
-                            if (Objects.equals(id, order.getProductID())) {
-                                String name = document.getString("name");
-                                int price = document.getLong("price").intValue();
-                                holder.tvProductName.setText(name);
-                                holder.tvPrice.setText(price + "đ");
-                                holder.tvState.setText(order.getState());
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                holder.tvDate.setText(formatter.format(Long.parseLong(order.getOrderDate())));
-                            }
-                        }
-                        // Hiển thị dữ liệu
-                    }
-                });
+    // Hàm để định dạng ngày tháng
+    private String formatOrderDate(String date) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            return outputFormat.format(inputFormat.parse(date));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return date;
+        }
     }
 }
