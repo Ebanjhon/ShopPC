@@ -7,6 +7,19 @@ public class User {
 
     // constructor
 
+
+    public User(String idUser, String username, String role, String firstname, String lastname, String email, String phone, String address, String birthDate) {
+        this.idUser = idUser;
+        this.username = username;
+        this.role = role;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.birthDate = birthDate;
+    }
+
     public User(String idUser, String username, String role, String firstname, String lastname, String email, String phone, String avatar, String address, String birthDate) {
         this.idUser = idUser;
         this.username = username;

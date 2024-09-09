@@ -3,4 +3,9 @@
     <string name="register">Bạn chưa có tài khoản?<font color="#9025E4"> Đăng ký</font></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="roles_array">
+        <item>Admin</item>
+        <item>Saler</item>
+        <item>User</item>
+    </string-array>
 </resources>

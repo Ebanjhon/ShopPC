@@ -17,16 +17,21 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class AdapterProduct extends BaseAdapter {
+public class AdapterFilter extends BaseAdapter {
     private List<Product> products;
     private Context context;
     private LayoutInflater inflater;
     private NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
 
-    public AdapterProduct(Context context, List<Product> products) {
+    public AdapterFilter(List<Product> products, Context context) {
         this.products = products;
         this.context = context;
-        this.inflater = LayoutInflater.from(context);
+    }
+
+    public AdapterFilter(List<Product> products, Context context, LayoutInflater inflater) {
+        this.products = products;
+        this.context = context;
+        this.inflater = inflater;
     }
 
     @Override
@@ -46,10 +51,10 @@ public class AdapterProduct extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.item_product_list_manager, null);
+        view = inflater.inflate(R.layout.item_filter_product, null);
         TextView name, price, count, id;
         ImageView img = view.findViewById(R.id.imageViewProduct);
-        Button btnDeleteProduct = view.findViewById(R.id.buttonDelateProduct);
+
 
         name = (TextView) view.findViewById(R.id.nameProduct);
         id = (TextView) view.findViewById(R.id.idProduct);
@@ -62,10 +67,7 @@ public class AdapterProduct extends BaseAdapter {
         String formattedNumber = formatter.format(products.get(i).getPrice());
         formattedNumber = formattedNumber.replace(',', '.');
         price.setText("Giá: "+formattedNumber + "đ") ;
-        btnDeleteProduct.setOnClickListener(v -> {
-            String proId = products.get(i).getId();
-            deleteProduct(proId,i);
-        });
+
         return view;
     }
 
@@ -77,17 +79,6 @@ public class AdapterProduct extends BaseAdapter {
             return str;
         }
     }
-    private  void deleteProduct(String productId, int posistion)
-    {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String namePro = products.get(posistion).getName();
-        db.collection("Products").document(productId).delete().addOnSuccessListener(d ->{
-            products.remove(posistion);
-            notifyDataSetChanged();
-            Toast.makeText(context,"Product "+ namePro + " deleted", Toast.LENGTH_LONG).show();
-        }).addOnFailureListener(e-> {
-            Toast.makeText(context,"Error deleting product",Toast.LENGTH_LONG).show();
-        });
 
-    }
+
 }

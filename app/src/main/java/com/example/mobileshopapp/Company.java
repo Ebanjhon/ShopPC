@@ -3,6 +3,11 @@ package com.example.mobileshopapp;
 public class Company {
     private String id, name, image;
 
+    public Company(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Company(String id, String name, String image) {
         this.id = id;
         this.name = name;

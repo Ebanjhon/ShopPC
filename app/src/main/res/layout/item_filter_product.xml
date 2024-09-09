@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageViewProduct"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:padding="1dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/imagewait" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="4dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/idProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mã:"
+            android:textColor="@color/chuden"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/priceProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/chuden"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:text="12.000.000đ"/>
+
+        <TextView
+            android:id="@+id/countProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/chuden"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:text="23"/>
+
+        <TextView
+            android:id="@+id/nameProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/chuden"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:text="qưerfsdsddhfskdflskjdfh"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

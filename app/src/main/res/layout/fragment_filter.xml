@@ -42,6 +42,16 @@
         android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexboxCompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flexWrap="wrap"
+        app:alignItems="center"
+        app:justifyContent="center">
+
+
+    </com.google.android.flexbox.FlexboxLayout>
 
     <TextView
         android:text="Giá sản phẩm"
@@ -176,5 +186,11 @@
         android:textColor="@color/milk"
         android:textSize="30dp"
         android:textStyle="bold"/>
+
+    <ListView
+        android:id="@+id/listViewProduct"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
 
 </LinearLayout>

@@ -1,0 +1,125 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create User and Assign Role"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- First Name Input -->
+    <EditText
+        android:id="@+id/editTextFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Firstname"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Lastname Input -->
+    <EditText
+        android:id="@+id/editTextLastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Lastname"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="12dp"/>
+    <!-- User Name Input -->
+    <EditText
+        android:id="@+id/editTextUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter User Name"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Phone Input -->
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Phone Number"
+        android:inputType="phone"
+        android:layout_marginBottom="12dp"/>
+    <!-- User Email Input -->
+    <EditText
+        android:id="@+id/editTextUserEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Email"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Birthday Input -->
+    <EditText
+        android:id="@+id/editTextBirthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Birthday"
+        android:inputType="date"
+        android:layout_marginBottom="12dp"/>
+    <!-- Address Input -->
+    <EditText
+        android:id="@+id/editTextAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Address"
+        android:inputType="text"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Password Input -->
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Password"
+        android:inputType="text"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Role Selection Spinner -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Role"
+        android:layout_marginBottom="8dp"/>
+
+    <Spinner
+        android:id="@+id/roleSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Buttons for Save and Cancel -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_marginEnd="8dp"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
