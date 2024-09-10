@@ -1,5 +1,6 @@
 package com.example.mobileshopapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -44,10 +45,11 @@ public class ProductDetailFragment extends Fragment {
     private TextView nameProduct, compaPro, price, detail;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference docRef;
-    private Button btnComment;
+    private Button btnComment, addCart;
     private EditText edtComment;
     private RecyclerView rvComment;
     private User user;
+    private Product product;
     private FirebaseAuth mAuth;
     private DatabaseHelper dbHelper;
     private String productId;
@@ -67,6 +69,7 @@ public class ProductDetailFragment extends Fragment {
         detail = view.findViewById(R.id.textDetail);
         dbHelper = new DatabaseHelper(requireContext());
         mAuth = FirebaseAuth.getInstance();
+        addCart = view.findViewById(R.id.addToCart);
         // back
         TextView btnBack = view.findViewById(R.id.back);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +82,7 @@ public class ProductDetailFragment extends Fragment {
         // lấy dữ liệu truyền
         Bundle bundle = getArguments();
         if (bundle != null) {
-            Product product = bundle.getParcelable("product");
+            product = bundle.getParcelable("product");
             if (product != null) {
                 productId = product.getId();
                 String setPrice = formatter.format(product.getPrice());
@@ -207,6 +210,23 @@ public class ProductDetailFragment extends Fragment {
                         Toast.makeText(getActivity(), "Tạo bình luận thất bại!", Toast.LENGTH_SHORT).show();
                     });
 
+        });
+
+        addCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserManager userManager = new UserManager(getContext());
+                if(userManager.getUser() == null)
+                {
+                    Toast.makeText(getContext(), "Vui lòng đăng nhập để tiếp tục!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), Login.class);
+                    startActivity(intent);
+                }else{
+                    CartManager cartManager = new CartManager(getContext());
+                    cartManager.addToCart(product.getId(),product.getName(), product.getImage(), product.getPrice(), 1);
+                    Toast.makeText(getContext(), "Đã thêm vào giỏ", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 
         return view;

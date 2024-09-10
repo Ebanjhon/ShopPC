@@ -23,6 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RoleAccountFragment extends Fragment {
 
@@ -31,13 +35,7 @@ public class RoleAccountFragment extends Fragment {
     Button btnSave, btnCancel;
     FirebaseAuth firebaseAuth;
     DatabaseReference userRef;
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//
-//        }
-//    }
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Nullable
     @Override
@@ -68,8 +66,6 @@ public class RoleAccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 saveUser();
-//                Toast.makeText(getActivity(),"Created new user successful",Toast.LENGTH_SHORT).show();
-                clearFields();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -91,11 +87,6 @@ public class RoleAccountFragment extends Fragment {
         String password = txtPassword.getText().toString();
         String role = roleSpinner.getSelectedItem().toString();
 
-        // Kiểm tra nếu độ dài số điện thoại không phải là 10 số
-//        if (phone.length() != 10) {
-//            Toast.makeText(getContext(), "Phone number must be exactly 10 digits", Toast.LENGTH_LONG).show();
-//            return;
-//        }
         if(TextUtils.isEmpty(firstname) ||
                 TextUtils.isEmpty(firstname) ||
                 TextUtils.isEmpty(lastname) ||
@@ -107,42 +98,46 @@ public class RoleAccountFragment extends Fragment {
                 TextUtils.isEmpty(role) ||
                 TextUtils.isEmpty(password))
         {
-            Toast.makeText(getContext(),"Please fill all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Vui lòng điền đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
             return;
         }
+
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null)
                 {
-                    // Save additional user data to Firebase Database
                     String userID = user.getUid();
-                    User newUser = new User(userID,username,role,firstname,lastname,email,phone,address,birthday);
-                    userRef.child(userID).setValue(newUser)
+                    Map<String, Object> u = new HashMap<>();
+                    u.put("username", username);
+                    u.put("role", role);
+                    u.put("lastname", lastname);
+                    u.put("firstname",firstname);
+                    u.put("phone", phone);
+                    u.put("address", address);
+                    u.put("birthday", birthday);
+                    u.put("avatar", "");
+
+                    // Sử dụng set() với document ID tùy chỉnh (ở đây là uid)
+                    db.collection("Users")
+                            .document(userID)  // Đặt document ID theo uid
+                            .set(u)
                             .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(getActivity(),"Created new user successful",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Tạo tài khoản mới thành công!", Toast.LENGTH_SHORT).show();
                                 clearFields();
                             })
-                            .addOnFailureListener(e -> Toast.makeText(getContext(),"Failed to assign role ", Toast.LENGTH_LONG).show());
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(getContext(), "Tạo tài khỏan thất bại!", Toast.LENGTH_SHORT).show();
+                            });
+                    Toast.makeText(getContext(), "thanh cong", Toast.LENGTH_SHORT).show();
                 }
             }
             else {
-                Toast.makeText(getContext(),"Failed to create new user " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Tạo tài khoản thất bài!" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
-    //    private  void clearFields()
-//    {
-//        txtFirstname.setText("");
-//        txtLastname.setText("");
-//        txtUserName.setText("");
-//        txtEmail.setText("");
-//        txtPhone.setText("");
-//        txtAddress.setText("");
-//        txtBirthday.setText("");
-//        txtPassword.setText("");
-//        roleSpinner.setSelection(0);
-//    }
+
     private void clearFields() {
         try {
             txtFirstname.setText("");

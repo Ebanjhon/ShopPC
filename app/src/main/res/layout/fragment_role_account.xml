@@ -10,7 +10,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create User and Assign Role"
+        android:text="Tạo tài khoản"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
@@ -82,14 +82,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Password"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:layout_marginBottom="12dp"/>
 
     <!-- Role Selection Spinner -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Role"
+        android:text="Chọn Quyền tài khoản"
         android:layout_marginBottom="8dp"/>
 
     <Spinner
@@ -109,7 +109,7 @@
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="Tạo tài khoản"
             android:layout_margin="10dp"/>
 
         <Button

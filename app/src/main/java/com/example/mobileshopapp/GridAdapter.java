@@ -1,6 +1,7 @@
 package com.example.mobileshopapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,9 +69,15 @@ public class GridAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 // xử lý thêm sản pẩm vào giỏ
-                CartManager cartManager = new CartManager(context);
-                cartManager.addToCart(products.get(position).getId(),products.get(position).getName(), products.get(position).getImage(), products.get(position).getPrice(), 1);
-                Toast.makeText(context, "Đã thêm sản phẩm vào giỏ!", Toast.LENGTH_SHORT).show();
+                UserManager userManager = new UserManager(context);
+                if(userManager.getUser() == null)
+                {
+                    Toast.makeText(context, "Vui lòng đăng nhập để tiếp tục!", Toast.LENGTH_SHORT).show();
+                }else{
+                    CartManager cartManager = new CartManager(context);
+                    cartManager.addToCart(products.get(position).getId(),products.get(position).getName(), products.get(position).getImage(), products.get(position).getPrice(), 1);
+                    Toast.makeText(context, "Đã thêm sản phẩm vào giỏ!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
